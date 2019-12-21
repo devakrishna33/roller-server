@@ -5,7 +5,6 @@ export const Query = {
     return authId ? client.user({ id: authId }) : null;
   },
   async projects(_paernt) {
-    console.log("hi");
     return await client.projects();
   },
   async trending(_parent, _args, { authId }) {
@@ -14,9 +13,15 @@ export const Query = {
       first: 10
     });
   },
-  async getPosts(_parent, _args) {
+  async getPosts(_parent, _args, { authId }) {
     return await client.post({
       id: "5dfe2964be07770007f6012c"
+    });
+  },
+  async getLocations(_parent, _args, _ctx) {
+    console.log("coming here");
+    return await client.posts({
+      orderBy: "numberOfSerious_DESC"
     });
   }
 };

@@ -2,7 +2,9 @@ type Query {
   me: User
   projects: [Project!]
   trending: [Project!]
-  getPosts: Post!
+  getPosts: [Post!]
+  getLocations: [Post!]
+  getProjects: [Projects!]
 }
 
 type Mutation {
@@ -11,13 +13,14 @@ type Mutation {
   updateProfile(data: UpdateProfileInput!): User!
   createPost(data: CreatePostInput!): Post!
   deletePost(id: String!): Post!
-
   createProject(data: CreateProjectInput): Project!
   editProject(data: EditProjectInput, id: String!): Project!
+  markComplete(id: String!): Project!
 }
 
 type Subscription {
   me: User
+  getFeed: [Post!]
 }
 
 type User {
@@ -57,7 +60,6 @@ type Location {
   lng: String!
   id: ID!
   post: Post!
-  name: String!
 }
 
 type Comment {
@@ -79,6 +81,7 @@ type Project {
   location: Location!
   author: User!
   updatedAt: String!
+  status: String!
 }
 
 type Tag {

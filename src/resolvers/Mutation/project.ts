@@ -33,5 +33,16 @@ export default {
       },
       data
     });
+  },
+  async markComplete(_parent, { id }, { authId }) {
+    if (!authId) return null;
+    return await client.updateProject({
+      where: {
+        id
+      },
+      data: {
+        status: "COMPLETE"
+      }
+    });
   }
 };

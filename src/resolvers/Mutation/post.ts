@@ -6,6 +6,7 @@ export default {
     { data: { photo, content, title, location } },
     { authId }
   ) {
+    console.log("dadsa");
     return await client.createPost({
       photo,
       content,

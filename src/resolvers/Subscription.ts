@@ -3,7 +3,6 @@ import { client } from "../prisma";
 export const Subscription = {
   me: {
     subscribe: async (_parent, _args, { authId }) => {
-      console.log(authId);
       return authId
         ? client.$subscribe
             .user({
@@ -17,6 +16,22 @@ export const Subscription = {
     },
     resolve: payload => {
       return payload;
+    }
+  },
+  getFeed: {
+    subscribe: async (_parent, _args, { authId }) => {
+      return authId
+        ? client.$subscribe
+            .post({
+              node: {
+                serious_some: {
+                  id: authId
+                }
+              },
+              mutation_in: ["UPDATED", "CREATED", "DELETED"]
+            })
+            .node()
+        : null;
     }
   }
 };
