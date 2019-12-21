@@ -1,15 +1,6 @@
 import { client } from "../../prisma";
 
 export default {
-  async allProjects(_paernt, { page, rowsPerPage }, { authId }) {
-    if (!authId) {
-      return null;
-    }
-    return client.projects({
-      skip: page * rowsPerPage,
-      first: rowsPerPage
-    });
-  },
   async createProject(
     _parent,
     {
@@ -33,6 +24,14 @@ export default {
           lng
         }
       }
+    });
+  },
+  async editProject(_parent, { data, id }, { authId }) {
+    return await client.updateProject({
+      where: {
+        id
+      },
+      data
     });
   }
 };

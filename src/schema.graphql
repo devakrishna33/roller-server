@@ -1,5 +1,6 @@
 type Query {
   me: User
+  projects: [Project!]
 }
 
 type Mutation {
@@ -10,7 +11,7 @@ type Mutation {
   deletePost(id: String!): Post!
   getPost(id: String!): Post!
   createProject(data: CreateProjectInput): Project!
-  allProjects: [Project!]
+  editProject(data: EditProjectInput, id: String!): Project!
 }
 
 type Subscription {
@@ -87,6 +88,11 @@ type AuthPayload {
   user: User!
 }
 
+enum Status {
+  IN_PROGRESS
+  COMPLETE
+}
+
 input SignInInput {
   email: String!
   password: String!
@@ -123,4 +129,10 @@ input CreateProjectInput {
   description: String!
   photo: String!
   location: LocationInput!
+}
+
+input EditProjectInput {
+  title: String!
+  description: String!
+  photo: String!
 }

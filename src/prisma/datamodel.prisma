@@ -13,10 +13,9 @@ type User {
   reputation: Int! @default(value: 0)
 }
 
-enum Gender {
-  MALE
-  FEMALE
-  OTHER
+enum Status {
+  IN_PROGRESS
+  COMPLETE
 }
 
 type Post {
@@ -60,9 +59,11 @@ type Project {
   description: String!
   photo: String!
   createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   comments: [Comment!] @relation(name: "CommentsOnProject")
   author: User! @relation(name: "ProjectsByUser", link: INLINE)
   location: Location! @relation(name: "LocationForProject")
+  status: Status! @default(value: IN_PROGRESS)
 }
 
 type Tag {
