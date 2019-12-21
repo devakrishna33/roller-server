@@ -12,5 +12,37 @@ export default {
           }
         })
       : null;
+  },
+  async addSerious(_parent, { id }, { authId }) {
+    return authId
+      ? await client.updateUser({
+          where: {
+            id: authId
+          },
+          data: {
+            serious: {
+              connect: {
+                id
+              }
+            }
+          }
+        })
+      : null;
+  },
+  async addTrivial(_parent, { id }, { authId }) {
+    return authId
+      ? await client.updateUser({
+          where: {
+            id: authId
+          },
+          data: {
+            serious: {
+              connect: {
+                id
+              }
+            }
+          }
+        })
+      : null;
   }
 };

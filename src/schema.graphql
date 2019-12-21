@@ -4,7 +4,7 @@ type Query {
   trending: [Project!]
   getPosts: [Post!]
   getLocations: [Post!]
-  getProjects: [Projects!]
+  getProjects: [Project!]
 }
 
 type Mutation {
@@ -16,6 +16,8 @@ type Mutation {
   createProject(data: CreateProjectInput): Project!
   editProject(data: EditProjectInput, id: String!): Project!
   markComplete(id: String!): Project!
+  addSerious(id: String!): Post!
+  addTrivial(id: String!): Post!
 }
 
 type Subscription {

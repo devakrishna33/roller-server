@@ -14,12 +14,9 @@ export const Query = {
     });
   },
   async getPosts(_parent, _args, { authId }) {
-    return await client.post({
-      id: "5dfe2964be07770007f6012c"
-    });
+    return await client.posts();
   },
   async getLocations(_parent, _args, _ctx) {
-    console.log("coming here");
     return await client.posts({
       orderBy: "numberOfSerious_DESC"
     });
