@@ -312,8 +312,8 @@ input CommentWhereUniqueInput {
 scalar DateTime
 
 type Location {
-  lat: String!
-  lng: String!
+  lat: Float!
+  lng: Float!
   id: ID!
   post: Post
   project: Project
@@ -326,8 +326,8 @@ type LocationConnection {
 }
 
 input LocationCreateInput {
-  lat: String!
-  lng: String!
+  lat: Float!
+  lng: Float!
   id: ID
   post: PostCreateOneWithoutLocationInput
   project: ProjectCreateOneWithoutLocationInput
@@ -344,15 +344,15 @@ input LocationCreateOneWithoutProjectInput {
 }
 
 input LocationCreateWithoutPostInput {
-  lat: String!
-  lng: String!
+  lat: Float!
+  lng: Float!
   id: ID
   project: ProjectCreateOneWithoutLocationInput
 }
 
 input LocationCreateWithoutProjectInput {
-  lat: String!
-  lng: String!
+  lat: Float!
+  lng: Float!
   id: ID
   post: PostCreateOneWithoutLocationInput
 }
@@ -372,8 +372,8 @@ enum LocationOrderByInput {
 }
 
 type LocationPreviousValues {
-  lat: String!
-  lng: String!
+  lat: Float!
+  lng: Float!
   id: ID!
 }
 
@@ -394,15 +394,15 @@ input LocationSubscriptionWhereInput {
 }
 
 input LocationUpdateInput {
-  lat: String
-  lng: String
+  lat: Float
+  lng: Float
   post: PostUpdateOneWithoutLocationInput
   project: ProjectUpdateOneWithoutLocationInput
 }
 
 input LocationUpdateManyMutationInput {
-  lat: String
-  lng: String
+  lat: Float
+  lng: Float
 }
 
 input LocationUpdateOneRequiredWithoutPostInput {
@@ -420,14 +420,14 @@ input LocationUpdateOneRequiredWithoutProjectInput {
 }
 
 input LocationUpdateWithoutPostDataInput {
-  lat: String
-  lng: String
+  lat: Float
+  lng: Float
   project: ProjectUpdateOneWithoutLocationInput
 }
 
 input LocationUpdateWithoutProjectDataInput {
-  lat: String
-  lng: String
+  lat: Float
+  lng: Float
   post: PostUpdateOneWithoutLocationInput
 }
 
@@ -442,34 +442,22 @@ input LocationUpsertWithoutProjectInput {
 }
 
 input LocationWhereInput {
-  lat: String
-  lat_not: String
-  lat_in: [String!]
-  lat_not_in: [String!]
-  lat_lt: String
-  lat_lte: String
-  lat_gt: String
-  lat_gte: String
-  lat_contains: String
-  lat_not_contains: String
-  lat_starts_with: String
-  lat_not_starts_with: String
-  lat_ends_with: String
-  lat_not_ends_with: String
-  lng: String
-  lng_not: String
-  lng_in: [String!]
-  lng_not_in: [String!]
-  lng_lt: String
-  lng_lte: String
-  lng_gt: String
-  lng_gte: String
-  lng_contains: String
-  lng_not_contains: String
-  lng_starts_with: String
-  lng_not_starts_with: String
-  lng_ends_with: String
-  lng_not_ends_with: String
+  lat: Float
+  lat_not: Float
+  lat_in: [Float!]
+  lat_not_in: [Float!]
+  lat_lt: Float
+  lat_lte: Float
+  lat_gt: Float
+  lat_gte: Float
+  lng: Float
+  lng_not: Float
+  lng_in: [Float!]
+  lng_not_in: [Float!]
+  lng_lt: Float
+  lng_lte: Float
+  lng_gt: Float
+  lng_gte: Float
   id: ID
   id_not: ID
   id_in: [ID!]

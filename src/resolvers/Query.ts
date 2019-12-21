@@ -13,5 +13,10 @@ export const Query = {
       orderBy: "numberOfSerious_DESC",
       first: 10
     });
+  },
+  async getPosts(_parent, _args) {
+    return await client.post({
+      id: "5dfe2964be07770007f6012c"
+    });
   }
 };

@@ -2,6 +2,7 @@ type Query {
   me: User
   projects: [Project!]
   trending: [Project!]
+  getPosts: Post!
 }
 
 type Mutation {
@@ -10,7 +11,7 @@ type Mutation {
   updateProfile(data: UpdateProfileInput!): User!
   createPost(data: CreatePostInput!): Post!
   deletePost(id: String!): Post!
-  getPost(id: String!): Post!
+
   createProject(data: CreateProjectInput): Project!
   editProject(data: EditProjectInput, id: String!): Project!
 }
@@ -48,6 +49,7 @@ type Post {
   location: Location!
   tags: [Tag!]
   comments: [Comment!]
+  status: Status
 }
 
 type Location {
@@ -91,6 +93,7 @@ type AuthPayload {
 }
 
 enum Status {
+  NOTICED
   IN_PROGRESS
   COMPLETE
 }
@@ -116,14 +119,13 @@ input UpdateProfileInput {
 input CreatePostInput {
   photo: String!
   content: String
-  summary: String!
   title: String!
   location: LocationInput!
 }
 
 input LocationInput {
-  lat: Int!
-  lng: Int!
+  lat: Float!
+  lng: Float!
 }
 
 input CreateProjectInput {

@@ -1,8 +1,11 @@
 import { client } from "../../prisma";
 
 export default {
-  async createPost(_parent, { photo, content, title, lat, lng }, { authId }) {
-    if (!authId) return null;
+  async createPost(
+    _parent,
+    { data: { photo, content, title, location } },
+    { authId }
+  ) {
     return await client.createPost({
       photo,
       content,
@@ -20,8 +23,7 @@ export default {
       numberOfSerious: 1,
       location: {
         create: {
-          lng,
-          lat
+          ...location
         }
       }
     });
@@ -38,10 +40,5 @@ export default {
       });
     }
     return null;
-  },
-  async getPost(_parent, { id }) {
-    return await client.post({
-      id
-    });
   }
 };

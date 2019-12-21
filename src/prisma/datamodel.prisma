@@ -17,6 +17,7 @@ type User {
 enum Status {
   IN_PROGRESS
   COMPLETE
+  NOTICED
 }
 
 type Post {
@@ -34,11 +35,12 @@ type Post {
   location: Location! @relation(name: "LocationForPost")
   tags: [Tag!] @relation(name: "TagsForPost")
   comments: [Comment!] @relation(name: "CommentsOnPost")
+  status: Status!
 }
 
 type Location {
-  lat: String!
-  lng: String!
+  lat: Float!
+  lng: Float!
   id: ID! @id
   post: Post @relation(name: "LocationForPost", link: INLINE)
   project: Project @relation(name: "LocationForProject", link: INLINE)
