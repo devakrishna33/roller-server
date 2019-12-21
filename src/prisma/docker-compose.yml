@@ -14,7 +14,7 @@ services:
         databases:
           default:
             connector: mongo
-            database: urban-matrix
+            database: hackathon
             uri: mongodb://192.168.99.100:27017
   mongo:
     image: mongo:4.2

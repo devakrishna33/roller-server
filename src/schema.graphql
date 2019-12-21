@@ -2,8 +2,84 @@ type Query {
   me: User
 }
 
+type Mutation {
+  signUp(data: SignUpInput!): AuthPayload!
+  signIn(email: String!, password: String!): AuthPayload!
+  updateProfile(data: UpdateProfileInput!): User!
+  createPost(data: CreatePostInput!): Post!
+  deletePost(id: String!): Post!
+  getPost(id: String!): Post!
+  createProject(data: CreateProjectInput): Project!
+  allProjects: [Project!]
+}
+
 type Subscription {
   me: User
+}
+
+type User {
+  id: ID!
+  password: String!
+  name: String!
+  email: String!
+  posts: [Post!]
+  projects: [Project!]
+  serious: [Post!]
+  trivial: [Post!]
+  maximumDistance: Int!
+  shareMyFeed: Boolean!
+  comments: [Comment!]
+}
+
+type Post {
+  photo: String!
+  id: ID!
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int!
+  numberOfTrivial: Int!
+  trivial: [User!]
+  serious: [User!]
+  author: User!
+  createdAt: String!
+  location: Location!
+  tags: [Tag!]
+  comments: [Comment!]
+}
+
+type Location {
+  lat: String!
+  lng: String!
+  id: ID!
+  post: Post!
+  name: String!
+}
+
+type Comment {
+  id: ID!
+  createdAt: String!
+  author: User!
+  likes: Int!
+  post: Post
+  project: Project
+}
+
+type Project {
+  id: ID!
+  title: String!
+  description: String!
+  photo: String!
+  createdAt: String!
+  comments: [Comment!]
+  location: Location!
+  author: User!
+}
+
+type Tag {
+  id: ID!
+  title: String!
+  Posts: [Post!]
 }
 
 type AuthPayload {
@@ -11,8 +87,40 @@ type AuthPayload {
   user: User!
 }
 
-type User {
-  id: ID!
+input SignInInput {
   email: String!
+  password: String!
+}
+
+input SignUpInput {
+  email: String!
+  password: String!
   name: String!
+}
+
+input UpdateProfileInput {
+  name: String
+  email: String
+  maximumDistance: Int
+  shareMyFeed: Boolean
+}
+
+input CreatePostInput {
+  photo: String!
+  content: String
+  summary: String!
+  title: String!
+  location: LocationInput!
+}
+
+input LocationInput {
+  lat: String!
+  lng: String!
+}
+
+input CreateProjectInput {
+  title: String!
+  description: String!
+  photo: String!
+  location: LocationInput!
 }

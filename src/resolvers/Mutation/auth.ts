@@ -3,9 +3,18 @@ import * as jwt from "jsonwebtoken";
 import { client } from "../../prisma";
 
 export default {
-  async signUp(_parent, args, _ctx) {
-    const password = await bcrypt.hash(args.password, 10);
-    const user = await client.createUser({ ...args, password });
+  async signUp(
+    _parent,
+    { data: { password, ...details } }: { data: any },
+    _ctx
+  ) {
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    console.log("hi");
+    const user = await client.createUser({
+      ...details,
+      password: encryptedPassword
+    });
+    console.log(user);
 
     return {
       token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),
@@ -23,6 +32,7 @@ export default {
     if (!valid) {
       throw new Error("Invalid password");
     }
+    console.log("hi");
 
     return {
       token: jwt.sign({ id: user.id }, process.env.JWT_SECRET),

@@ -3,4 +3,70 @@ type User {
   password: String!
   name: String!
   email: String! @unique
+  posts: [Post!] @relation(name: "PostsByUser")
+  projects: [Project!] @relation(name: "ProjectsByUser")
+  serious: [Post!] @relation(name: "MarkedSeriousByUser")
+  trivial: [Post!] @relation(name: "MarkedTrivialByUser")
+  maximumDistance: Int! @default(value: 50)
+  shareMyFeed: Boolean! @default(value: true)
+  comments: [Comment!] @relation(name: "CommentsByUser")
+  reputation: Int! @default(value: 0)
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+type Post {
+  photo: String!
+  id: ID! @id
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int! @default(value: 0)
+  numberOfTrivial: Int! @default(value: 0)
+  trivial: [User!] @relation(name: "MarkedTrivialByUser", link: INLINE)
+  serious: [User!] @relation(name: "MarkedSeriousByUser", link: INLINE)
+  author: User! @relation(name: "PostsByUser", link: INLINE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  location: Location! @relation(name: "LocationForPost")
+  tags: [Tag!] @relation(name: "TagsForPost")
+  comments: [Comment!] @relation(name: "CommentsOnPost")
+}
+
+type Location {
+  lat: String!
+  lng: String!
+  id: ID! @id
+  post: Post @relation(name: "LocationForPost", link: INLINE)
+  project: Project @relation(name: "LocationForProject", link: INLINE)
+}
+
+type Comment {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  author: User! @relation(name: "CommentsByUser", link: INLINE)
+  likes: Int!
+  post: Post @relation(name: "CommentsOnPost", link:INLINE)
+  project: Project @relation(name: "CommentsOnProject", link: INLINE)
+}
+
+type Project {
+  id: ID! @id
+  title: String!
+  description: String!
+  photo: String!
+  createdAt: DateTime! @createdAt
+  comments: [Comment!] @relation(name: "CommentsOnProject")
+  author: User! @relation(name: "ProjectsByUser", link: INLINE)
+  location: Location! @relation(name: "LocationForProject")
+}
+
+type Tag {
+  id: ID! @id
+  title: String!
+  Posts: [Post!] @relation(name: "TagsForPost", link:INLINE)
 }

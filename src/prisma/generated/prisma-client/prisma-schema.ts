@@ -2,11 +2,15 @@
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-export const typeDefs = /* GraphQL */ `type AggregateAnnotation {
+export const typeDefs = /* GraphQL */ `type AggregateComment {
   count: Int!
 }
 
-type AggregatePoint {
+type AggregateLocation {
+  count: Int!
+}
+
+type AggregatePost {
   count: Int!
 }
 
@@ -14,413 +18,514 @@ type AggregateProject {
   count: Int!
 }
 
-type AggregateUser {
+type AggregateTag {
   count: Int!
 }
 
-type Annotation {
-  id: ID!
-  name: String!
-  project: Project
-  groups(where: AnnotationWhereInput, orderBy: AnnotationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Annotation!]
-  parent: Annotation
-  points(where: PointWhereInput, orderBy: PointOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Point!]
-  isLeaf: Boolean!
-}
-
-type AnnotationConnection {
-  pageInfo: PageInfo!
-  edges: [AnnotationEdge]!
-  aggregate: AggregateAnnotation!
-}
-
-input AnnotationCreateInput {
-  id: ID
-  name: String!
-  project: ProjectCreateOneWithoutAnnotationsInput
-  groups: AnnotationCreateManyWithoutParentInput
-  parent: AnnotationCreateOneWithoutGroupsInput
-  points: PointCreateManyWithoutParentInput
-  isLeaf: Boolean
-}
-
-input AnnotationCreateManyWithoutParentInput {
-  create: [AnnotationCreateWithoutParentInput!]
-  connect: [AnnotationWhereUniqueInput!]
-}
-
-input AnnotationCreateManyWithoutProjectInput {
-  create: [AnnotationCreateWithoutProjectInput!]
-  connect: [AnnotationWhereUniqueInput!]
-}
-
-input AnnotationCreateOneWithoutGroupsInput {
-  create: AnnotationCreateWithoutGroupsInput
-  connect: AnnotationWhereUniqueInput
-}
-
-input AnnotationCreateOneWithoutPointsInput {
-  create: AnnotationCreateWithoutPointsInput
-  connect: AnnotationWhereUniqueInput
-}
-
-input AnnotationCreateWithoutGroupsInput {
-  id: ID
-  name: String!
-  project: ProjectCreateOneWithoutAnnotationsInput
-  parent: AnnotationCreateOneWithoutGroupsInput
-  points: PointCreateManyWithoutParentInput
-  isLeaf: Boolean
-}
-
-input AnnotationCreateWithoutParentInput {
-  id: ID
-  name: String!
-  project: ProjectCreateOneWithoutAnnotationsInput
-  groups: AnnotationCreateManyWithoutParentInput
-  points: PointCreateManyWithoutParentInput
-  isLeaf: Boolean
-}
-
-input AnnotationCreateWithoutPointsInput {
-  id: ID
-  name: String!
-  project: ProjectCreateOneWithoutAnnotationsInput
-  groups: AnnotationCreateManyWithoutParentInput
-  parent: AnnotationCreateOneWithoutGroupsInput
-  isLeaf: Boolean
-}
-
-input AnnotationCreateWithoutProjectInput {
-  id: ID
-  name: String!
-  groups: AnnotationCreateManyWithoutParentInput
-  parent: AnnotationCreateOneWithoutGroupsInput
-  points: PointCreateManyWithoutParentInput
-  isLeaf: Boolean
-}
-
-type AnnotationEdge {
-  node: Annotation!
-  cursor: String!
-}
-
-enum AnnotationOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  isLeaf_ASC
-  isLeaf_DESC
-}
-
-type AnnotationPreviousValues {
-  id: ID!
-  name: String!
-  isLeaf: Boolean!
-}
-
-input AnnotationScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  isLeaf: Boolean
-  isLeaf_not: Boolean
-  AND: [AnnotationScalarWhereInput!]
-  OR: [AnnotationScalarWhereInput!]
-  NOT: [AnnotationScalarWhereInput!]
-}
-
-type AnnotationSubscriptionPayload {
-  mutation: MutationType!
-  node: Annotation
-  updatedFields: [String!]
-  previousValues: AnnotationPreviousValues
-}
-
-input AnnotationSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: AnnotationWhereInput
-  AND: [AnnotationSubscriptionWhereInput!]
-}
-
-input AnnotationUpdateInput {
-  name: String
-  project: ProjectUpdateOneWithoutAnnotationsInput
-  groups: AnnotationUpdateManyWithoutParentInput
-  parent: AnnotationUpdateOneWithoutGroupsInput
-  points: PointUpdateManyWithoutParentInput
-  isLeaf: Boolean
-}
-
-input AnnotationUpdateManyDataInput {
-  name: String
-  isLeaf: Boolean
-}
-
-input AnnotationUpdateManyMutationInput {
-  name: String
-  isLeaf: Boolean
-}
-
-input AnnotationUpdateManyWithoutParentInput {
-  create: [AnnotationCreateWithoutParentInput!]
-  delete: [AnnotationWhereUniqueInput!]
-  connect: [AnnotationWhereUniqueInput!]
-  set: [AnnotationWhereUniqueInput!]
-  disconnect: [AnnotationWhereUniqueInput!]
-  update: [AnnotationUpdateWithWhereUniqueWithoutParentInput!]
-  upsert: [AnnotationUpsertWithWhereUniqueWithoutParentInput!]
-  deleteMany: [AnnotationScalarWhereInput!]
-  updateMany: [AnnotationUpdateManyWithWhereNestedInput!]
-}
-
-input AnnotationUpdateManyWithoutProjectInput {
-  create: [AnnotationCreateWithoutProjectInput!]
-  delete: [AnnotationWhereUniqueInput!]
-  connect: [AnnotationWhereUniqueInput!]
-  set: [AnnotationWhereUniqueInput!]
-  disconnect: [AnnotationWhereUniqueInput!]
-  update: [AnnotationUpdateWithWhereUniqueWithoutProjectInput!]
-  upsert: [AnnotationUpsertWithWhereUniqueWithoutProjectInput!]
-  deleteMany: [AnnotationScalarWhereInput!]
-  updateMany: [AnnotationUpdateManyWithWhereNestedInput!]
-}
-
-input AnnotationUpdateManyWithWhereNestedInput {
-  where: AnnotationScalarWhereInput!
-  data: AnnotationUpdateManyDataInput!
-}
-
-input AnnotationUpdateOneWithoutGroupsInput {
-  create: AnnotationCreateWithoutGroupsInput
-  update: AnnotationUpdateWithoutGroupsDataInput
-  upsert: AnnotationUpsertWithoutGroupsInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: AnnotationWhereUniqueInput
-}
-
-input AnnotationUpdateOneWithoutPointsInput {
-  create: AnnotationCreateWithoutPointsInput
-  update: AnnotationUpdateWithoutPointsDataInput
-  upsert: AnnotationUpsertWithoutPointsInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: AnnotationWhereUniqueInput
-}
-
-input AnnotationUpdateWithoutGroupsDataInput {
-  name: String
-  project: ProjectUpdateOneWithoutAnnotationsInput
-  parent: AnnotationUpdateOneWithoutGroupsInput
-  points: PointUpdateManyWithoutParentInput
-  isLeaf: Boolean
-}
-
-input AnnotationUpdateWithoutParentDataInput {
-  name: String
-  project: ProjectUpdateOneWithoutAnnotationsInput
-  groups: AnnotationUpdateManyWithoutParentInput
-  points: PointUpdateManyWithoutParentInput
-  isLeaf: Boolean
-}
-
-input AnnotationUpdateWithoutPointsDataInput {
-  name: String
-  project: ProjectUpdateOneWithoutAnnotationsInput
-  groups: AnnotationUpdateManyWithoutParentInput
-  parent: AnnotationUpdateOneWithoutGroupsInput
-  isLeaf: Boolean
-}
-
-input AnnotationUpdateWithoutProjectDataInput {
-  name: String
-  groups: AnnotationUpdateManyWithoutParentInput
-  parent: AnnotationUpdateOneWithoutGroupsInput
-  points: PointUpdateManyWithoutParentInput
-  isLeaf: Boolean
-}
-
-input AnnotationUpdateWithWhereUniqueWithoutParentInput {
-  where: AnnotationWhereUniqueInput!
-  data: AnnotationUpdateWithoutParentDataInput!
-}
-
-input AnnotationUpdateWithWhereUniqueWithoutProjectInput {
-  where: AnnotationWhereUniqueInput!
-  data: AnnotationUpdateWithoutProjectDataInput!
-}
-
-input AnnotationUpsertWithoutGroupsInput {
-  update: AnnotationUpdateWithoutGroupsDataInput!
-  create: AnnotationCreateWithoutGroupsInput!
-}
-
-input AnnotationUpsertWithoutPointsInput {
-  update: AnnotationUpdateWithoutPointsDataInput!
-  create: AnnotationCreateWithoutPointsInput!
-}
-
-input AnnotationUpsertWithWhereUniqueWithoutParentInput {
-  where: AnnotationWhereUniqueInput!
-  update: AnnotationUpdateWithoutParentDataInput!
-  create: AnnotationCreateWithoutParentInput!
-}
-
-input AnnotationUpsertWithWhereUniqueWithoutProjectInput {
-  where: AnnotationWhereUniqueInput!
-  update: AnnotationUpdateWithoutProjectDataInput!
-  create: AnnotationCreateWithoutProjectInput!
-}
-
-input AnnotationWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  project: ProjectWhereInput
-  groups_some: AnnotationWhereInput
-  parent: AnnotationWhereInput
-  points_some: PointWhereInput
-  isLeaf: Boolean
-  isLeaf_not: Boolean
-  AND: [AnnotationWhereInput!]
-}
-
-input AnnotationWhereUniqueInput {
-  id: ID
+type AggregateUser {
+  count: Int!
 }
 
 type BatchPayload {
   count: Long!
 }
 
-type Coordinate {
-  lng: Float!
-  lat: Float!
+type Comment {
+  id: ID!
+  createdAt: DateTime!
+  author: User!
+  likes: Int!
+  post: Post
+  project: Project
 }
 
-input CoordinateCreateInput {
-  lng: Float!
-  lat: Float!
+type CommentConnection {
+  pageInfo: PageInfo!
+  edges: [CommentEdge]!
+  aggregate: AggregateComment!
 }
 
-input CoordinateCreateOneInput {
-  create: CoordinateCreateInput
+input CommentCreateInput {
+  id: ID
+  author: UserCreateOneWithoutCommentsInput!
+  likes: Int!
+  post: PostCreateOneWithoutCommentsInput
+  project: ProjectCreateOneWithoutCommentsInput
 }
 
-input CoordinateUpdateDataInput {
-  lng: Float
-  lat: Float
+input CommentCreateManyWithoutAuthorInput {
+  create: [CommentCreateWithoutAuthorInput!]
+  connect: [CommentWhereUniqueInput!]
 }
 
-input CoordinateUpdateOneRequiredInput {
-  create: CoordinateCreateInput
-  update: CoordinateUpdateDataInput
-  upsert: CoordinateUpsertNestedInput
+input CommentCreateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  connect: [CommentWhereUniqueInput!]
 }
 
-input CoordinateUpsertNestedInput {
-  update: CoordinateUpdateDataInput!
-  create: CoordinateCreateInput!
+input CommentCreateManyWithoutProjectInput {
+  create: [CommentCreateWithoutProjectInput!]
+  connect: [CommentWhereUniqueInput!]
 }
 
-input CoordinateWhereInput {
-  lng: Float
-  lng_not: Float
-  lng_in: [Float!]
-  lng_not_in: [Float!]
-  lng_lt: Float
-  lng_lte: Float
-  lng_gt: Float
-  lng_gte: Float
-  lat: Float
-  lat_not: Float
-  lat_in: [Float!]
-  lat_not_in: [Float!]
-  lat_lt: Float
-  lat_lte: Float
-  lat_gt: Float
-  lat_gte: Float
-  AND: [CoordinateWhereInput!]
+input CommentCreateWithoutAuthorInput {
+  id: ID
+  likes: Int!
+  post: PostCreateOneWithoutCommentsInput
+  project: ProjectCreateOneWithoutCommentsInput
+}
+
+input CommentCreateWithoutPostInput {
+  id: ID
+  author: UserCreateOneWithoutCommentsInput!
+  likes: Int!
+  project: ProjectCreateOneWithoutCommentsInput
+}
+
+input CommentCreateWithoutProjectInput {
+  id: ID
+  author: UserCreateOneWithoutCommentsInput!
+  likes: Int!
+  post: PostCreateOneWithoutCommentsInput
+}
+
+type CommentEdge {
+  node: Comment!
+  cursor: String!
+}
+
+enum CommentOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  likes_ASC
+  likes_DESC
+}
+
+type CommentPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  likes: Int!
+}
+
+input CommentScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  likes: Int
+  likes_not: Int
+  likes_in: [Int!]
+  likes_not_in: [Int!]
+  likes_lt: Int
+  likes_lte: Int
+  likes_gt: Int
+  likes_gte: Int
+  AND: [CommentScalarWhereInput!]
+  OR: [CommentScalarWhereInput!]
+  NOT: [CommentScalarWhereInput!]
+}
+
+type CommentSubscriptionPayload {
+  mutation: MutationType!
+  node: Comment
+  updatedFields: [String!]
+  previousValues: CommentPreviousValues
+}
+
+input CommentSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CommentWhereInput
+  AND: [CommentSubscriptionWhereInput!]
+}
+
+input CommentUpdateInput {
+  author: UserUpdateOneRequiredWithoutCommentsInput
+  likes: Int
+  post: PostUpdateOneWithoutCommentsInput
+  project: ProjectUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateManyDataInput {
+  likes: Int
+}
+
+input CommentUpdateManyMutationInput {
+  likes: Int
+}
+
+input CommentUpdateManyWithoutAuthorInput {
+  create: [CommentCreateWithoutAuthorInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+}
+
+input CommentUpdateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutPostInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutPostInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+}
+
+input CommentUpdateManyWithoutProjectInput {
+  create: [CommentCreateWithoutProjectInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutProjectInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutProjectInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+}
+
+input CommentUpdateManyWithWhereNestedInput {
+  where: CommentScalarWhereInput!
+  data: CommentUpdateManyDataInput!
+}
+
+input CommentUpdateWithoutAuthorDataInput {
+  likes: Int
+  post: PostUpdateOneWithoutCommentsInput
+  project: ProjectUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateWithoutPostDataInput {
+  author: UserUpdateOneRequiredWithoutCommentsInput
+  likes: Int
+  project: ProjectUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateWithoutProjectDataInput {
+  author: UserUpdateOneRequiredWithoutCommentsInput
+  likes: Int
+  post: PostUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateWithWhereUniqueWithoutAuthorInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutAuthorDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutPostDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutProjectInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutProjectDataInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutAuthorInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutAuthorDataInput!
+  create: CommentCreateWithoutAuthorInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutPostDataInput!
+  create: CommentCreateWithoutPostInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutProjectInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutProjectDataInput!
+  create: CommentCreateWithoutProjectInput!
+}
+
+input CommentWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  author: UserWhereInput
+  likes: Int
+  likes_not: Int
+  likes_in: [Int!]
+  likes_not_in: [Int!]
+  likes_lt: Int
+  likes_lte: Int
+  likes_gt: Int
+  likes_gte: Int
+  post: PostWhereInput
+  project: ProjectWhereInput
+  AND: [CommentWhereInput!]
+}
+
+input CommentWhereUniqueInput {
+  id: ID
 }
 
 scalar DateTime
 
+type Location {
+  lat: String!
+  lng: String!
+  id: ID!
+  post: Post
+  project: Project
+}
+
+type LocationConnection {
+  pageInfo: PageInfo!
+  edges: [LocationEdge]!
+  aggregate: AggregateLocation!
+}
+
+input LocationCreateInput {
+  lat: String!
+  lng: String!
+  id: ID
+  post: PostCreateOneWithoutLocationInput
+  project: ProjectCreateOneWithoutLocationInput
+}
+
+input LocationCreateOneWithoutPostInput {
+  create: LocationCreateWithoutPostInput
+  connect: LocationWhereUniqueInput
+}
+
+input LocationCreateOneWithoutProjectInput {
+  create: LocationCreateWithoutProjectInput
+  connect: LocationWhereUniqueInput
+}
+
+input LocationCreateWithoutPostInput {
+  lat: String!
+  lng: String!
+  id: ID
+  project: ProjectCreateOneWithoutLocationInput
+}
+
+input LocationCreateWithoutProjectInput {
+  lat: String!
+  lng: String!
+  id: ID
+  post: PostCreateOneWithoutLocationInput
+}
+
+type LocationEdge {
+  node: Location!
+  cursor: String!
+}
+
+enum LocationOrderByInput {
+  lat_ASC
+  lat_DESC
+  lng_ASC
+  lng_DESC
+  id_ASC
+  id_DESC
+}
+
+type LocationPreviousValues {
+  lat: String!
+  lng: String!
+  id: ID!
+}
+
+type LocationSubscriptionPayload {
+  mutation: MutationType!
+  node: Location
+  updatedFields: [String!]
+  previousValues: LocationPreviousValues
+}
+
+input LocationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: LocationWhereInput
+  AND: [LocationSubscriptionWhereInput!]
+}
+
+input LocationUpdateInput {
+  lat: String
+  lng: String
+  post: PostUpdateOneWithoutLocationInput
+  project: ProjectUpdateOneWithoutLocationInput
+}
+
+input LocationUpdateManyMutationInput {
+  lat: String
+  lng: String
+}
+
+input LocationUpdateOneRequiredWithoutPostInput {
+  create: LocationCreateWithoutPostInput
+  update: LocationUpdateWithoutPostDataInput
+  upsert: LocationUpsertWithoutPostInput
+  connect: LocationWhereUniqueInput
+}
+
+input LocationUpdateOneRequiredWithoutProjectInput {
+  create: LocationCreateWithoutProjectInput
+  update: LocationUpdateWithoutProjectDataInput
+  upsert: LocationUpsertWithoutProjectInput
+  connect: LocationWhereUniqueInput
+}
+
+input LocationUpdateWithoutPostDataInput {
+  lat: String
+  lng: String
+  project: ProjectUpdateOneWithoutLocationInput
+}
+
+input LocationUpdateWithoutProjectDataInput {
+  lat: String
+  lng: String
+  post: PostUpdateOneWithoutLocationInput
+}
+
+input LocationUpsertWithoutPostInput {
+  update: LocationUpdateWithoutPostDataInput!
+  create: LocationCreateWithoutPostInput!
+}
+
+input LocationUpsertWithoutProjectInput {
+  update: LocationUpdateWithoutProjectDataInput!
+  create: LocationCreateWithoutProjectInput!
+}
+
+input LocationWhereInput {
+  lat: String
+  lat_not: String
+  lat_in: [String!]
+  lat_not_in: [String!]
+  lat_lt: String
+  lat_lte: String
+  lat_gt: String
+  lat_gte: String
+  lat_contains: String
+  lat_not_contains: String
+  lat_starts_with: String
+  lat_not_starts_with: String
+  lat_ends_with: String
+  lat_not_ends_with: String
+  lng: String
+  lng_not: String
+  lng_in: [String!]
+  lng_not_in: [String!]
+  lng_lt: String
+  lng_lte: String
+  lng_gt: String
+  lng_gte: String
+  lng_contains: String
+  lng_not_contains: String
+  lng_starts_with: String
+  lng_not_starts_with: String
+  lng_ends_with: String
+  lng_not_ends_with: String
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  post: PostWhereInput
+  project: ProjectWhereInput
+  AND: [LocationWhereInput!]
+}
+
+input LocationWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
-  createAnnotation(data: AnnotationCreateInput!): Annotation!
-  updateAnnotation(data: AnnotationUpdateInput!, where: AnnotationWhereUniqueInput!): Annotation
-  updateManyAnnotations(data: AnnotationUpdateManyMutationInput!, where: AnnotationWhereInput): BatchPayload!
-  upsertAnnotation(where: AnnotationWhereUniqueInput!, create: AnnotationCreateInput!, update: AnnotationUpdateInput!): Annotation!
-  deleteAnnotation(where: AnnotationWhereUniqueInput!): Annotation
-  deleteManyAnnotations(where: AnnotationWhereInput): BatchPayload!
-  createPoint(data: PointCreateInput!): Point!
-  updatePoint(data: PointUpdateInput!, where: PointWhereUniqueInput!): Point
-  updateManyPoints(data: PointUpdateManyMutationInput!, where: PointWhereInput): BatchPayload!
-  upsertPoint(where: PointWhereUniqueInput!, create: PointCreateInput!, update: PointUpdateInput!): Point!
-  deletePoint(where: PointWhereUniqueInput!): Point
-  deleteManyPoints(where: PointWhereInput): BatchPayload!
+  createComment(data: CommentCreateInput!): Comment!
+  updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
+  updateManyComments(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
+  upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
+  deleteComment(where: CommentWhereUniqueInput!): Comment
+  deleteManyComments(where: CommentWhereInput): BatchPayload!
+  createLocation(data: LocationCreateInput!): Location!
+  updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
+  updateManyLocations(data: LocationUpdateManyMutationInput!, where: LocationWhereInput): BatchPayload!
+  upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
+  deleteLocation(where: LocationWhereUniqueInput!): Location
+  deleteManyLocations(where: LocationWhereInput): BatchPayload!
+  createPost(data: PostCreateInput!): Post!
+  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
+  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
+  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
+  deletePost(where: PostWhereUniqueInput!): Post
+  deleteManyPosts(where: PostWhereInput): BatchPayload!
   createProject(data: ProjectCreateInput!): Project!
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
   updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
+  createTag(data: TagCreateInput!): Tag!
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteManyTags(where: TagWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -446,91 +551,219 @@ type PageInfo {
   endCursor: String
 }
 
-type Point {
+type Post {
+  photo: String!
   id: ID!
-  name: String!
-  parent: Annotation
-  project: Project
-  coordinate: Coordinate!
-  color: String!
-  size: Int!
-  description: String
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int!
+  numberOfTrivial: Int!
+  trivial(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  serious(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  author: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  location: Location!
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
 
-type PointConnection {
+type PostConnection {
   pageInfo: PageInfo!
-  edges: [PointEdge]!
-  aggregate: AggregatePoint!
+  edges: [PostEdge]!
+  aggregate: AggregatePost!
 }
 
-input PointCreateInput {
+input PostCreateInput {
+  photo: String!
   id: ID
-  name: String
-  parent: AnnotationCreateOneWithoutPointsInput
-  project: ProjectCreateOneWithoutPointsInput
-  coordinate: CoordinateCreateOneInput!
-  color: String
-  size: Int
-  description: String
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserCreateManyWithoutTrivialInput
+  serious: UserCreateManyWithoutSeriousInput
+  author: UserCreateOneWithoutPostsInput!
+  location: LocationCreateOneWithoutPostInput!
+  tags: TagCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
 }
 
-input PointCreateManyWithoutParentInput {
-  create: [PointCreateWithoutParentInput!]
-  connect: [PointWhereUniqueInput!]
+input PostCreateManyWithoutAuthorInput {
+  create: [PostCreateWithoutAuthorInput!]
+  connect: [PostWhereUniqueInput!]
 }
 
-input PointCreateManyWithoutProjectInput {
-  create: [PointCreateWithoutProjectInput!]
-  connect: [PointWhereUniqueInput!]
+input PostCreateManyWithoutSeriousInput {
+  create: [PostCreateWithoutSeriousInput!]
+  connect: [PostWhereUniqueInput!]
 }
 
-input PointCreateWithoutParentInput {
+input PostCreateManyWithoutTagsInput {
+  create: [PostCreateWithoutTagsInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+input PostCreateManyWithoutTrivialInput {
+  create: [PostCreateWithoutTrivialInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+input PostCreateOneWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  connect: PostWhereUniqueInput
+}
+
+input PostCreateOneWithoutLocationInput {
+  create: PostCreateWithoutLocationInput
+  connect: PostWhereUniqueInput
+}
+
+input PostCreateWithoutAuthorInput {
+  photo: String!
   id: ID
-  name: String
-  project: ProjectCreateOneWithoutPointsInput
-  coordinate: CoordinateCreateOneInput!
-  color: String
-  size: Int
-  description: String
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserCreateManyWithoutTrivialInput
+  serious: UserCreateManyWithoutSeriousInput
+  location: LocationCreateOneWithoutPostInput!
+  tags: TagCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
 }
 
-input PointCreateWithoutProjectInput {
+input PostCreateWithoutCommentsInput {
+  photo: String!
   id: ID
-  name: String
-  parent: AnnotationCreateOneWithoutPointsInput
-  coordinate: CoordinateCreateOneInput!
-  color: String
-  size: Int
-  description: String
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserCreateManyWithoutTrivialInput
+  serious: UserCreateManyWithoutSeriousInput
+  author: UserCreateOneWithoutPostsInput!
+  location: LocationCreateOneWithoutPostInput!
+  tags: TagCreateManyWithoutPostsInput
 }
 
-type PointEdge {
-  node: Point!
+input PostCreateWithoutLocationInput {
+  photo: String!
+  id: ID
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserCreateManyWithoutTrivialInput
+  serious: UserCreateManyWithoutSeriousInput
+  author: UserCreateOneWithoutPostsInput!
+  tags: TagCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutSeriousInput {
+  photo: String!
+  id: ID
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserCreateManyWithoutTrivialInput
+  author: UserCreateOneWithoutPostsInput!
+  location: LocationCreateOneWithoutPostInput!
+  tags: TagCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutTagsInput {
+  photo: String!
+  id: ID
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserCreateManyWithoutTrivialInput
+  serious: UserCreateManyWithoutSeriousInput
+  author: UserCreateOneWithoutPostsInput!
+  location: LocationCreateOneWithoutPostInput!
+  comments: CommentCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutTrivialInput {
+  photo: String!
+  id: ID
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  serious: UserCreateManyWithoutSeriousInput
+  author: UserCreateOneWithoutPostsInput!
+  location: LocationCreateOneWithoutPostInput!
+  tags: TagCreateManyWithoutPostsInput
+  comments: CommentCreateManyWithoutPostInput
+}
+
+type PostEdge {
+  node: Post!
   cursor: String!
 }
 
-enum PointOrderByInput {
+enum PostOrderByInput {
+  photo_ASC
+  photo_DESC
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
-  color_ASC
-  color_DESC
-  size_ASC
-  size_DESC
-  description_ASC
-  description_DESC
+  content_ASC
+  content_DESC
+  summary_ASC
+  summary_DESC
+  title_ASC
+  title_DESC
+  numberOfSerious_ASC
+  numberOfSerious_DESC
+  numberOfTrivial_ASC
+  numberOfTrivial_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
-type PointPreviousValues {
+type PostPreviousValues {
+  photo: String!
   id: ID!
-  name: String!
-  color: String!
-  size: Int!
-  description: String
+  content: String
+  summary: String!
+  title: String!
+  numberOfSerious: Int!
+  numberOfTrivial: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
-input PointScalarWhereInput {
+input PostScalarWhereInput {
+  photo: String
+  photo_not: String
+  photo_in: [String!]
+  photo_not_in: [String!]
+  photo_lt: String
+  photo_lte: String
+  photo_gt: String
+  photo_gte: String
+  photo_contains: String
+  photo_not_contains: String
+  photo_starts_with: String
+  photo_not_starts_with: String
+  photo_ends_with: String
+  photo_not_ends_with: String
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -545,171 +778,358 @@ input PointScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  color: String
-  color_not: String
-  color_in: [String!]
-  color_not_in: [String!]
-  color_lt: String
-  color_lte: String
-  color_gt: String
-  color_gte: String
-  color_contains: String
-  color_not_contains: String
-  color_starts_with: String
-  color_not_starts_with: String
-  color_ends_with: String
-  color_not_ends_with: String
-  size: Int
-  size_not: Int
-  size_in: [Int!]
-  size_not_in: [Int!]
-  size_lt: Int
-  size_lte: Int
-  size_gt: Int
-  size_gte: Int
-  description: String
-  description_not: String
-  description_in: [String!]
-  description_not_in: [String!]
-  description_lt: String
-  description_lte: String
-  description_gt: String
-  description_gte: String
-  description_contains: String
-  description_not_contains: String
-  description_starts_with: String
-  description_not_starts_with: String
-  description_ends_with: String
-  description_not_ends_with: String
-  AND: [PointScalarWhereInput!]
-  OR: [PointScalarWhereInput!]
-  NOT: [PointScalarWhereInput!]
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  summary: String
+  summary_not: String
+  summary_in: [String!]
+  summary_not_in: [String!]
+  summary_lt: String
+  summary_lte: String
+  summary_gt: String
+  summary_gte: String
+  summary_contains: String
+  summary_not_contains: String
+  summary_starts_with: String
+  summary_not_starts_with: String
+  summary_ends_with: String
+  summary_not_ends_with: String
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  numberOfSerious: Int
+  numberOfSerious_not: Int
+  numberOfSerious_in: [Int!]
+  numberOfSerious_not_in: [Int!]
+  numberOfSerious_lt: Int
+  numberOfSerious_lte: Int
+  numberOfSerious_gt: Int
+  numberOfSerious_gte: Int
+  numberOfTrivial: Int
+  numberOfTrivial_not: Int
+  numberOfTrivial_in: [Int!]
+  numberOfTrivial_not_in: [Int!]
+  numberOfTrivial_lt: Int
+  numberOfTrivial_lte: Int
+  numberOfTrivial_gt: Int
+  numberOfTrivial_gte: Int
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [PostScalarWhereInput!]
+  OR: [PostScalarWhereInput!]
+  NOT: [PostScalarWhereInput!]
 }
 
-type PointSubscriptionPayload {
+type PostSubscriptionPayload {
   mutation: MutationType!
-  node: Point
+  node: Post
   updatedFields: [String!]
-  previousValues: PointPreviousValues
+  previousValues: PostPreviousValues
 }
 
-input PointSubscriptionWhereInput {
+input PostSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: PointWhereInput
-  AND: [PointSubscriptionWhereInput!]
+  node: PostWhereInput
+  AND: [PostSubscriptionWhereInput!]
 }
 
-input PointUpdateInput {
-  name: String
-  parent: AnnotationUpdateOneWithoutPointsInput
-  project: ProjectUpdateOneWithoutPointsInput
-  coordinate: CoordinateUpdateOneRequiredInput
-  color: String
-  size: Int
-  description: String
+input PostUpdateInput {
+  photo: String
+  content: String
+  summary: String
+  title: String
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserUpdateManyWithoutTrivialInput
+  serious: UserUpdateManyWithoutSeriousInput
+  author: UserUpdateOneRequiredWithoutPostsInput
+  location: LocationUpdateOneRequiredWithoutPostInput
+  tags: TagUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
 }
 
-input PointUpdateManyDataInput {
-  name: String
-  color: String
-  size: Int
-  description: String
+input PostUpdateManyDataInput {
+  photo: String
+  content: String
+  summary: String
+  title: String
+  numberOfSerious: Int
+  numberOfTrivial: Int
 }
 
-input PointUpdateManyMutationInput {
-  name: String
-  color: String
-  size: Int
-  description: String
+input PostUpdateManyMutationInput {
+  photo: String
+  content: String
+  summary: String
+  title: String
+  numberOfSerious: Int
+  numberOfTrivial: Int
 }
 
-input PointUpdateManyWithoutParentInput {
-  create: [PointCreateWithoutParentInput!]
-  delete: [PointWhereUniqueInput!]
-  connect: [PointWhereUniqueInput!]
-  set: [PointWhereUniqueInput!]
-  disconnect: [PointWhereUniqueInput!]
-  update: [PointUpdateWithWhereUniqueWithoutParentInput!]
-  upsert: [PointUpsertWithWhereUniqueWithoutParentInput!]
-  deleteMany: [PointScalarWhereInput!]
-  updateMany: [PointUpdateManyWithWhereNestedInput!]
+input PostUpdateManyWithoutAuthorInput {
+  create: [PostCreateWithoutAuthorInput!]
+  delete: [PostWhereUniqueInput!]
+  connect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [PostScalarWhereInput!]
+  updateMany: [PostUpdateManyWithWhereNestedInput!]
 }
 
-input PointUpdateManyWithoutProjectInput {
-  create: [PointCreateWithoutProjectInput!]
-  delete: [PointWhereUniqueInput!]
-  connect: [PointWhereUniqueInput!]
-  set: [PointWhereUniqueInput!]
-  disconnect: [PointWhereUniqueInput!]
-  update: [PointUpdateWithWhereUniqueWithoutProjectInput!]
-  upsert: [PointUpsertWithWhereUniqueWithoutProjectInput!]
-  deleteMany: [PointScalarWhereInput!]
-  updateMany: [PointUpdateManyWithWhereNestedInput!]
+input PostUpdateManyWithoutSeriousInput {
+  create: [PostCreateWithoutSeriousInput!]
+  delete: [PostWhereUniqueInput!]
+  connect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutSeriousInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutSeriousInput!]
+  deleteMany: [PostScalarWhereInput!]
+  updateMany: [PostUpdateManyWithWhereNestedInput!]
 }
 
-input PointUpdateManyWithWhereNestedInput {
-  where: PointScalarWhereInput!
-  data: PointUpdateManyDataInput!
+input PostUpdateManyWithoutTagsInput {
+  create: [PostCreateWithoutTagsInput!]
+  delete: [PostWhereUniqueInput!]
+  connect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutTagsInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutTagsInput!]
+  deleteMany: [PostScalarWhereInput!]
+  updateMany: [PostUpdateManyWithWhereNestedInput!]
 }
 
-input PointUpdateWithoutParentDataInput {
-  name: String
-  project: ProjectUpdateOneWithoutPointsInput
-  coordinate: CoordinateUpdateOneRequiredInput
-  color: String
-  size: Int
-  description: String
+input PostUpdateManyWithoutTrivialInput {
+  create: [PostCreateWithoutTrivialInput!]
+  delete: [PostWhereUniqueInput!]
+  connect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutTrivialInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutTrivialInput!]
+  deleteMany: [PostScalarWhereInput!]
+  updateMany: [PostUpdateManyWithWhereNestedInput!]
 }
 
-input PointUpdateWithoutProjectDataInput {
-  name: String
-  parent: AnnotationUpdateOneWithoutPointsInput
-  coordinate: CoordinateUpdateOneRequiredInput
-  color: String
-  size: Int
-  description: String
+input PostUpdateManyWithWhereNestedInput {
+  where: PostScalarWhereInput!
+  data: PostUpdateManyDataInput!
 }
 
-input PointUpdateWithWhereUniqueWithoutParentInput {
-  where: PointWhereUniqueInput!
-  data: PointUpdateWithoutParentDataInput!
+input PostUpdateOneWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  update: PostUpdateWithoutCommentsDataInput
+  upsert: PostUpsertWithoutCommentsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: PostWhereUniqueInput
 }
 
-input PointUpdateWithWhereUniqueWithoutProjectInput {
-  where: PointWhereUniqueInput!
-  data: PointUpdateWithoutProjectDataInput!
+input PostUpdateOneWithoutLocationInput {
+  create: PostCreateWithoutLocationInput
+  update: PostUpdateWithoutLocationDataInput
+  upsert: PostUpsertWithoutLocationInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: PostWhereUniqueInput
 }
 
-input PointUpsertWithWhereUniqueWithoutParentInput {
-  where: PointWhereUniqueInput!
-  update: PointUpdateWithoutParentDataInput!
-  create: PointCreateWithoutParentInput!
+input PostUpdateWithoutAuthorDataInput {
+  photo: String
+  content: String
+  summary: String
+  title: String
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserUpdateManyWithoutTrivialInput
+  serious: UserUpdateManyWithoutSeriousInput
+  location: LocationUpdateOneRequiredWithoutPostInput
+  tags: TagUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
 }
 
-input PointUpsertWithWhereUniqueWithoutProjectInput {
-  where: PointWhereUniqueInput!
-  update: PointUpdateWithoutProjectDataInput!
-  create: PointCreateWithoutProjectInput!
+input PostUpdateWithoutCommentsDataInput {
+  photo: String
+  content: String
+  summary: String
+  title: String
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserUpdateManyWithoutTrivialInput
+  serious: UserUpdateManyWithoutSeriousInput
+  author: UserUpdateOneRequiredWithoutPostsInput
+  location: LocationUpdateOneRequiredWithoutPostInput
+  tags: TagUpdateManyWithoutPostsInput
 }
 
-input PointWhereInput {
+input PostUpdateWithoutLocationDataInput {
+  photo: String
+  content: String
+  summary: String
+  title: String
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserUpdateManyWithoutTrivialInput
+  serious: UserUpdateManyWithoutSeriousInput
+  author: UserUpdateOneRequiredWithoutPostsInput
+  tags: TagUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutSeriousDataInput {
+  photo: String
+  content: String
+  summary: String
+  title: String
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserUpdateManyWithoutTrivialInput
+  author: UserUpdateOneRequiredWithoutPostsInput
+  location: LocationUpdateOneRequiredWithoutPostInput
+  tags: TagUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutTagsDataInput {
+  photo: String
+  content: String
+  summary: String
+  title: String
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  trivial: UserUpdateManyWithoutTrivialInput
+  serious: UserUpdateManyWithoutSeriousInput
+  author: UserUpdateOneRequiredWithoutPostsInput
+  location: LocationUpdateOneRequiredWithoutPostInput
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutTrivialDataInput {
+  photo: String
+  content: String
+  summary: String
+  title: String
+  numberOfSerious: Int
+  numberOfTrivial: Int
+  serious: UserUpdateManyWithoutSeriousInput
+  author: UserUpdateOneRequiredWithoutPostsInput
+  location: LocationUpdateOneRequiredWithoutPostInput
+  tags: TagUpdateManyWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutAuthorDataInput!
+}
+
+input PostUpdateWithWhereUniqueWithoutSeriousInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutSeriousDataInput!
+}
+
+input PostUpdateWithWhereUniqueWithoutTagsInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutTagsDataInput!
+}
+
+input PostUpdateWithWhereUniqueWithoutTrivialInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutTrivialDataInput!
+}
+
+input PostUpsertWithoutCommentsInput {
+  update: PostUpdateWithoutCommentsDataInput!
+  create: PostCreateWithoutCommentsInput!
+}
+
+input PostUpsertWithoutLocationInput {
+  update: PostUpdateWithoutLocationDataInput!
+  create: PostCreateWithoutLocationInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutAuthorDataInput!
+  create: PostCreateWithoutAuthorInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutSeriousInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutSeriousDataInput!
+  create: PostCreateWithoutSeriousInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutTagsInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutTagsDataInput!
+  create: PostCreateWithoutTagsInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutTrivialInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutTrivialDataInput!
+  create: PostCreateWithoutTrivialInput!
+}
+
+input PostWhereInput {
+  photo: String
+  photo_not: String
+  photo_in: [String!]
+  photo_not_in: [String!]
+  photo_lt: String
+  photo_lte: String
+  photo_gt: String
+  photo_gte: String
+  photo_contains: String
+  photo_not_contains: String
+  photo_starts_with: String
+  photo_not_starts_with: String
+  photo_ends_with: String
+  photo_not_ends_with: String
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -724,76 +1144,102 @@ input PointWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  parent: AnnotationWhereInput
-  project: ProjectWhereInput
-  coordinate: CoordinateWhereInput
-  color: String
-  color_not: String
-  color_in: [String!]
-  color_not_in: [String!]
-  color_lt: String
-  color_lte: String
-  color_gt: String
-  color_gte: String
-  color_contains: String
-  color_not_contains: String
-  color_starts_with: String
-  color_not_starts_with: String
-  color_ends_with: String
-  color_not_ends_with: String
-  size: Int
-  size_not: Int
-  size_in: [Int!]
-  size_not_in: [Int!]
-  size_lt: Int
-  size_lte: Int
-  size_gt: Int
-  size_gte: Int
-  description: String
-  description_not: String
-  description_in: [String!]
-  description_not_in: [String!]
-  description_lt: String
-  description_lte: String
-  description_gt: String
-  description_gte: String
-  description_contains: String
-  description_not_contains: String
-  description_starts_with: String
-  description_not_starts_with: String
-  description_ends_with: String
-  description_not_ends_with: String
-  AND: [PointWhereInput!]
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  summary: String
+  summary_not: String
+  summary_in: [String!]
+  summary_not_in: [String!]
+  summary_lt: String
+  summary_lte: String
+  summary_gt: String
+  summary_gte: String
+  summary_contains: String
+  summary_not_contains: String
+  summary_starts_with: String
+  summary_not_starts_with: String
+  summary_ends_with: String
+  summary_not_ends_with: String
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  numberOfSerious: Int
+  numberOfSerious_not: Int
+  numberOfSerious_in: [Int!]
+  numberOfSerious_not_in: [Int!]
+  numberOfSerious_lt: Int
+  numberOfSerious_lte: Int
+  numberOfSerious_gt: Int
+  numberOfSerious_gte: Int
+  numberOfTrivial: Int
+  numberOfTrivial_not: Int
+  numberOfTrivial_in: [Int!]
+  numberOfTrivial_not_in: [Int!]
+  numberOfTrivial_lt: Int
+  numberOfTrivial_lte: Int
+  numberOfTrivial_gt: Int
+  numberOfTrivial_gte: Int
+  trivial_some: UserWhereInput
+  serious_some: UserWhereInput
+  author: UserWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  location: LocationWhereInput
+  tags_some: TagWhereInput
+  comments_some: CommentWhereInput
+  AND: [PostWhereInput!]
 }
 
-input PointWhereUniqueInput {
+input PostWhereUniqueInput {
   id: ID
 }
 
 type Project {
   id: ID!
-  name: String!
-  description: String
-  author: User!
-  thumbnail: String
-  annotations(where: AnnotationWhereInput, orderBy: AnnotationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Annotation!]
-  updatedAt: DateTime!
+  title: String!
+  description: String!
+  photo: String!
   createdAt: DateTime!
-  points(where: PointWhereInput, orderBy: PointOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Point!]
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  author: User!
+  location: Location!
 }
 
 type ProjectConnection {
@@ -804,12 +1250,12 @@ type ProjectConnection {
 
 input ProjectCreateInput {
   id: ID
-  name: String!
-  description: String
+  title: String!
+  description: String!
+  photo: String!
+  comments: CommentCreateManyWithoutProjectInput
   author: UserCreateOneWithoutProjectsInput!
-  thumbnail: String
-  annotations: AnnotationCreateManyWithoutProjectInput
-  points: PointCreateManyWithoutProjectInput
+  location: LocationCreateOneWithoutProjectInput!
 }
 
 input ProjectCreateManyWithoutAuthorInput {
@@ -817,41 +1263,41 @@ input ProjectCreateManyWithoutAuthorInput {
   connect: [ProjectWhereUniqueInput!]
 }
 
-input ProjectCreateOneWithoutAnnotationsInput {
-  create: ProjectCreateWithoutAnnotationsInput
+input ProjectCreateOneWithoutCommentsInput {
+  create: ProjectCreateWithoutCommentsInput
   connect: ProjectWhereUniqueInput
 }
 
-input ProjectCreateOneWithoutPointsInput {
-  create: ProjectCreateWithoutPointsInput
+input ProjectCreateOneWithoutLocationInput {
+  create: ProjectCreateWithoutLocationInput
   connect: ProjectWhereUniqueInput
-}
-
-input ProjectCreateWithoutAnnotationsInput {
-  id: ID
-  name: String!
-  description: String
-  author: UserCreateOneWithoutProjectsInput!
-  thumbnail: String
-  points: PointCreateManyWithoutProjectInput
 }
 
 input ProjectCreateWithoutAuthorInput {
   id: ID
-  name: String!
-  description: String
-  thumbnail: String
-  annotations: AnnotationCreateManyWithoutProjectInput
-  points: PointCreateManyWithoutProjectInput
+  title: String!
+  description: String!
+  photo: String!
+  comments: CommentCreateManyWithoutProjectInput
+  location: LocationCreateOneWithoutProjectInput!
 }
 
-input ProjectCreateWithoutPointsInput {
+input ProjectCreateWithoutCommentsInput {
   id: ID
-  name: String!
-  description: String
+  title: String!
+  description: String!
+  photo: String!
   author: UserCreateOneWithoutProjectsInput!
-  thumbnail: String
-  annotations: AnnotationCreateManyWithoutProjectInput
+  location: LocationCreateOneWithoutProjectInput!
+}
+
+input ProjectCreateWithoutLocationInput {
+  id: ID
+  title: String!
+  description: String!
+  photo: String!
+  comments: CommentCreateManyWithoutProjectInput
+  author: UserCreateOneWithoutProjectsInput!
 }
 
 type ProjectEdge {
@@ -862,24 +1308,21 @@ type ProjectEdge {
 enum ProjectOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
+  title_ASC
+  title_DESC
   description_ASC
   description_DESC
-  thumbnail_ASC
-  thumbnail_DESC
-  updatedAt_ASC
-  updatedAt_DESC
+  photo_ASC
+  photo_DESC
   createdAt_ASC
   createdAt_DESC
 }
 
 type ProjectPreviousValues {
   id: ID!
-  name: String!
-  description: String
-  thumbnail: String
-  updatedAt: DateTime!
+  title: String!
+  description: String!
+  photo: String!
   createdAt: DateTime!
 }
 
@@ -898,20 +1341,20 @@ input ProjectScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
   description: String
   description_not: String
   description_in: [String!]
@@ -926,28 +1369,20 @@ input ProjectScalarWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
-  thumbnail: String
-  thumbnail_not: String
-  thumbnail_in: [String!]
-  thumbnail_not_in: [String!]
-  thumbnail_lt: String
-  thumbnail_lte: String
-  thumbnail_gt: String
-  thumbnail_gte: String
-  thumbnail_contains: String
-  thumbnail_not_contains: String
-  thumbnail_starts_with: String
-  thumbnail_not_starts_with: String
-  thumbnail_ends_with: String
-  thumbnail_not_ends_with: String
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
+  photo: String
+  photo_not: String
+  photo_in: [String!]
+  photo_not_in: [String!]
+  photo_lt: String
+  photo_lte: String
+  photo_gt: String
+  photo_gte: String
+  photo_contains: String
+  photo_not_contains: String
+  photo_starts_with: String
+  photo_not_starts_with: String
+  photo_ends_with: String
+  photo_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -978,24 +1413,24 @@ input ProjectSubscriptionWhereInput {
 }
 
 input ProjectUpdateInput {
-  name: String
+  title: String
   description: String
+  photo: String
+  comments: CommentUpdateManyWithoutProjectInput
   author: UserUpdateOneRequiredWithoutProjectsInput
-  thumbnail: String
-  annotations: AnnotationUpdateManyWithoutProjectInput
-  points: PointUpdateManyWithoutProjectInput
+  location: LocationUpdateOneRequiredWithoutProjectInput
 }
 
 input ProjectUpdateManyDataInput {
-  name: String
+  title: String
   description: String
-  thumbnail: String
+  photo: String
 }
 
 input ProjectUpdateManyMutationInput {
-  name: String
+  title: String
   description: String
-  thumbnail: String
+  photo: String
 }
 
 input ProjectUpdateManyWithoutAuthorInput {
@@ -1015,46 +1450,46 @@ input ProjectUpdateManyWithWhereNestedInput {
   data: ProjectUpdateManyDataInput!
 }
 
-input ProjectUpdateOneWithoutAnnotationsInput {
-  create: ProjectCreateWithoutAnnotationsInput
-  update: ProjectUpdateWithoutAnnotationsDataInput
-  upsert: ProjectUpsertWithoutAnnotationsInput
+input ProjectUpdateOneWithoutCommentsInput {
+  create: ProjectCreateWithoutCommentsInput
+  update: ProjectUpdateWithoutCommentsDataInput
+  upsert: ProjectUpsertWithoutCommentsInput
   delete: Boolean
   disconnect: Boolean
   connect: ProjectWhereUniqueInput
 }
 
-input ProjectUpdateOneWithoutPointsInput {
-  create: ProjectCreateWithoutPointsInput
-  update: ProjectUpdateWithoutPointsDataInput
-  upsert: ProjectUpsertWithoutPointsInput
+input ProjectUpdateOneWithoutLocationInput {
+  create: ProjectCreateWithoutLocationInput
+  update: ProjectUpdateWithoutLocationDataInput
+  upsert: ProjectUpsertWithoutLocationInput
   delete: Boolean
   disconnect: Boolean
   connect: ProjectWhereUniqueInput
-}
-
-input ProjectUpdateWithoutAnnotationsDataInput {
-  name: String
-  description: String
-  author: UserUpdateOneRequiredWithoutProjectsInput
-  thumbnail: String
-  points: PointUpdateManyWithoutProjectInput
 }
 
 input ProjectUpdateWithoutAuthorDataInput {
-  name: String
+  title: String
   description: String
-  thumbnail: String
-  annotations: AnnotationUpdateManyWithoutProjectInput
-  points: PointUpdateManyWithoutProjectInput
+  photo: String
+  comments: CommentUpdateManyWithoutProjectInput
+  location: LocationUpdateOneRequiredWithoutProjectInput
 }
 
-input ProjectUpdateWithoutPointsDataInput {
-  name: String
+input ProjectUpdateWithoutCommentsDataInput {
+  title: String
   description: String
+  photo: String
   author: UserUpdateOneRequiredWithoutProjectsInput
-  thumbnail: String
-  annotations: AnnotationUpdateManyWithoutProjectInput
+  location: LocationUpdateOneRequiredWithoutProjectInput
+}
+
+input ProjectUpdateWithoutLocationDataInput {
+  title: String
+  description: String
+  photo: String
+  comments: CommentUpdateManyWithoutProjectInput
+  author: UserUpdateOneRequiredWithoutProjectsInput
 }
 
 input ProjectUpdateWithWhereUniqueWithoutAuthorInput {
@@ -1062,14 +1497,14 @@ input ProjectUpdateWithWhereUniqueWithoutAuthorInput {
   data: ProjectUpdateWithoutAuthorDataInput!
 }
 
-input ProjectUpsertWithoutAnnotationsInput {
-  update: ProjectUpdateWithoutAnnotationsDataInput!
-  create: ProjectCreateWithoutAnnotationsInput!
+input ProjectUpsertWithoutCommentsInput {
+  update: ProjectUpdateWithoutCommentsDataInput!
+  create: ProjectCreateWithoutCommentsInput!
 }
 
-input ProjectUpsertWithoutPointsInput {
-  update: ProjectUpdateWithoutPointsDataInput!
-  create: ProjectCreateWithoutPointsInput!
+input ProjectUpsertWithoutLocationInput {
+  update: ProjectUpdateWithoutLocationDataInput!
+  create: ProjectCreateWithoutLocationInput!
 }
 
 input ProjectUpsertWithWhereUniqueWithoutAuthorInput {
@@ -1093,20 +1528,20 @@ input ProjectWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
   description: String
   description_not: String
   description_in: [String!]
@@ -1121,30 +1556,20 @@ input ProjectWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
-  author: UserWhereInput
-  thumbnail: String
-  thumbnail_not: String
-  thumbnail_in: [String!]
-  thumbnail_not_in: [String!]
-  thumbnail_lt: String
-  thumbnail_lte: String
-  thumbnail_gt: String
-  thumbnail_gte: String
-  thumbnail_contains: String
-  thumbnail_not_contains: String
-  thumbnail_starts_with: String
-  thumbnail_not_starts_with: String
-  thumbnail_ends_with: String
-  thumbnail_not_ends_with: String
-  annotations_some: AnnotationWhereInput
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
+  photo: String
+  photo_not: String
+  photo_in: [String!]
+  photo_not_in: [String!]
+  photo_lt: String
+  photo_lte: String
+  photo_gt: String
+  photo_gte: String
+  photo_contains: String
+  photo_not_contains: String
+  photo_starts_with: String
+  photo_not_starts_with: String
+  photo_ends_with: String
+  photo_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1153,7 +1578,9 @@ input ProjectWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  points_some: PointWhereInput
+  comments_some: CommentWhereInput
+  author: UserWhereInput
+  location: LocationWhereInput
   AND: [ProjectWhereInput!]
 }
 
@@ -1162,15 +1589,21 @@ input ProjectWhereUniqueInput {
 }
 
 type Query {
-  annotation(where: AnnotationWhereUniqueInput!): Annotation
-  annotations(where: AnnotationWhereInput, orderBy: AnnotationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Annotation]!
-  annotationsConnection(where: AnnotationWhereInput, orderBy: AnnotationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnnotationConnection!
-  point(where: PointWhereUniqueInput!): Point
-  points(where: PointWhereInput, orderBy: PointOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Point]!
-  pointsConnection(where: PointWhereInput, orderBy: PointOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PointConnection!
+  comment(where: CommentWhereUniqueInput!): Comment
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
+  commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
+  location(where: LocationWhereUniqueInput!): Location
+  locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
+  locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
+  post(where: PostWhereUniqueInput!): Post
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
+  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
   project(where: ProjectWhereUniqueInput!): Project
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
+  tag(where: TagWhereUniqueInput!): Tag
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -1178,10 +1611,189 @@ type Query {
 }
 
 type Subscription {
-  annotation(where: AnnotationSubscriptionWhereInput): AnnotationSubscriptionPayload
-  point(where: PointSubscriptionWhereInput): PointSubscriptionPayload
+  comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
+  location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
+  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type Tag {
+  id: ID!
+  title: String!
+  Posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+}
+
+type TagConnection {
+  pageInfo: PageInfo!
+  edges: [TagEdge]!
+  aggregate: AggregateTag!
+}
+
+input TagCreateInput {
+  id: ID
+  title: String!
+  Posts: PostCreateManyWithoutTagsInput
+}
+
+input TagCreateManyWithoutPostsInput {
+  create: [TagCreateWithoutPostsInput!]
+  connect: [TagWhereUniqueInput!]
+}
+
+input TagCreateWithoutPostsInput {
+  id: ID
+  title: String!
+}
+
+type TagEdge {
+  node: Tag!
+  cursor: String!
+}
+
+enum TagOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+}
+
+type TagPreviousValues {
+  id: ID!
+  title: String!
+}
+
+input TagScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  AND: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  NOT: [TagScalarWhereInput!]
+}
+
+type TagSubscriptionPayload {
+  mutation: MutationType!
+  node: Tag
+  updatedFields: [String!]
+  previousValues: TagPreviousValues
+}
+
+input TagSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TagWhereInput
+  AND: [TagSubscriptionWhereInput!]
+}
+
+input TagUpdateInput {
+  title: String
+  Posts: PostUpdateManyWithoutTagsInput
+}
+
+input TagUpdateManyDataInput {
+  title: String
+}
+
+input TagUpdateManyMutationInput {
+  title: String
+}
+
+input TagUpdateManyWithoutPostsInput {
+  create: [TagCreateWithoutPostsInput!]
+  delete: [TagWhereUniqueInput!]
+  connect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
+  disconnect: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutPostsInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutPostsInput!]
+  deleteMany: [TagScalarWhereInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
+}
+
+input TagUpdateManyWithWhereNestedInput {
+  where: TagScalarWhereInput!
+  data: TagUpdateManyDataInput!
+}
+
+input TagUpdateWithoutPostsDataInput {
+  title: String
+}
+
+input TagUpdateWithWhereUniqueWithoutPostsInput {
+  where: TagWhereUniqueInput!
+  data: TagUpdateWithoutPostsDataInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutPostsInput {
+  where: TagWhereUniqueInput!
+  update: TagUpdateWithoutPostsDataInput!
+  create: TagCreateWithoutPostsInput!
+}
+
+input TagWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  Posts_some: PostWhereInput
+  AND: [TagWhereInput!]
+}
+
+input TagWhereUniqueInput {
+  id: ID
 }
 
 type User {
@@ -1189,7 +1801,14 @@ type User {
   password: String!
   name: String!
   email: String!
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+  serious(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  trivial(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  maximumDistance: Int!
+  shareMyFeed: Boolean!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  reputation: Int!
 }
 
 type UserConnection {
@@ -1203,7 +1822,34 @@ input UserCreateInput {
   password: String!
   name: String!
   email: String!
+  posts: PostCreateManyWithoutAuthorInput
   projects: ProjectCreateManyWithoutAuthorInput
+  serious: PostCreateManyWithoutSeriousInput
+  trivial: PostCreateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentCreateManyWithoutAuthorInput
+  reputation: Int
+}
+
+input UserCreateManyWithoutSeriousInput {
+  create: [UserCreateWithoutSeriousInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutTrivialInput {
+  create: [UserCreateWithoutTrivialInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutProjectsInput {
@@ -1211,11 +1857,74 @@ input UserCreateOneWithoutProjectsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateWithoutCommentsInput {
+  id: ID
+  password: String!
+  name: String!
+  email: String!
+  posts: PostCreateManyWithoutAuthorInput
+  projects: ProjectCreateManyWithoutAuthorInput
+  serious: PostCreateManyWithoutSeriousInput
+  trivial: PostCreateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  reputation: Int
+}
+
+input UserCreateWithoutPostsInput {
+  id: ID
+  password: String!
+  name: String!
+  email: String!
+  projects: ProjectCreateManyWithoutAuthorInput
+  serious: PostCreateManyWithoutSeriousInput
+  trivial: PostCreateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentCreateManyWithoutAuthorInput
+  reputation: Int
+}
+
 input UserCreateWithoutProjectsInput {
   id: ID
   password: String!
   name: String!
   email: String!
+  posts: PostCreateManyWithoutAuthorInput
+  serious: PostCreateManyWithoutSeriousInput
+  trivial: PostCreateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentCreateManyWithoutAuthorInput
+  reputation: Int
+}
+
+input UserCreateWithoutSeriousInput {
+  id: ID
+  password: String!
+  name: String!
+  email: String!
+  posts: PostCreateManyWithoutAuthorInput
+  projects: ProjectCreateManyWithoutAuthorInput
+  trivial: PostCreateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentCreateManyWithoutAuthorInput
+  reputation: Int
+}
+
+input UserCreateWithoutTrivialInput {
+  id: ID
+  password: String!
+  name: String!
+  email: String!
+  posts: PostCreateManyWithoutAuthorInput
+  projects: ProjectCreateManyWithoutAuthorInput
+  serious: PostCreateManyWithoutSeriousInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentCreateManyWithoutAuthorInput
+  reputation: Int
 }
 
 type UserEdge {
@@ -1232,6 +1941,12 @@ enum UserOrderByInput {
   name_DESC
   email_ASC
   email_DESC
+  maximumDistance_ASC
+  maximumDistance_DESC
+  shareMyFeed_ASC
+  shareMyFeed_DESC
+  reputation_ASC
+  reputation_DESC
 }
 
 type UserPreviousValues {
@@ -1239,6 +1954,89 @@ type UserPreviousValues {
   password: String!
   name: String!
   email: String!
+  maximumDistance: Int!
+  shareMyFeed: Boolean!
+  reputation: Int!
+}
+
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  maximumDistance: Int
+  maximumDistance_not: Int
+  maximumDistance_in: [Int!]
+  maximumDistance_not_in: [Int!]
+  maximumDistance_lt: Int
+  maximumDistance_lte: Int
+  maximumDistance_gt: Int
+  maximumDistance_gte: Int
+  shareMyFeed: Boolean
+  shareMyFeed_not: Boolean
+  reputation: Int
+  reputation_not: Int
+  reputation_in: [Int!]
+  reputation_not_in: [Int!]
+  reputation_lt: Int
+  reputation_lte: Int
+  reputation_gt: Int
+  reputation_gte: Int
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
 }
 
 type UserSubscriptionPayload {
@@ -1261,13 +2059,75 @@ input UserUpdateInput {
   password: String
   name: String
   email: String
+  posts: PostUpdateManyWithoutAuthorInput
   projects: ProjectUpdateManyWithoutAuthorInput
+  serious: PostUpdateManyWithoutSeriousInput
+  trivial: PostUpdateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentUpdateManyWithoutAuthorInput
+  reputation: Int
+}
+
+input UserUpdateManyDataInput {
+  password: String
+  name: String
+  email: String
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  reputation: Int
 }
 
 input UserUpdateManyMutationInput {
   password: String
   name: String
   email: String
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  reputation: Int
+}
+
+input UserUpdateManyWithoutSeriousInput {
+  create: [UserCreateWithoutSeriousInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutSeriousInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutSeriousInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
+input UserUpdateManyWithoutTrivialInput {
+  create: [UserCreateWithoutTrivialInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutTrivialInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutTrivialInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
+}
+
+input UserUpdateOneRequiredWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  update: UserUpdateWithoutCommentsDataInput
+  upsert: UserUpsertWithoutCommentsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  update: UserUpdateWithoutPostsDataInput
+  upsert: UserUpsertWithoutPostsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneRequiredWithoutProjectsInput {
@@ -1277,15 +2137,106 @@ input UserUpdateOneRequiredWithoutProjectsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateWithoutCommentsDataInput {
+  password: String
+  name: String
+  email: String
+  posts: PostUpdateManyWithoutAuthorInput
+  projects: ProjectUpdateManyWithoutAuthorInput
+  serious: PostUpdateManyWithoutSeriousInput
+  trivial: PostUpdateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  reputation: Int
+}
+
+input UserUpdateWithoutPostsDataInput {
+  password: String
+  name: String
+  email: String
+  projects: ProjectUpdateManyWithoutAuthorInput
+  serious: PostUpdateManyWithoutSeriousInput
+  trivial: PostUpdateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentUpdateManyWithoutAuthorInput
+  reputation: Int
+}
+
 input UserUpdateWithoutProjectsDataInput {
   password: String
   name: String
   email: String
+  posts: PostUpdateManyWithoutAuthorInput
+  serious: PostUpdateManyWithoutSeriousInput
+  trivial: PostUpdateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentUpdateManyWithoutAuthorInput
+  reputation: Int
+}
+
+input UserUpdateWithoutSeriousDataInput {
+  password: String
+  name: String
+  email: String
+  posts: PostUpdateManyWithoutAuthorInput
+  projects: ProjectUpdateManyWithoutAuthorInput
+  trivial: PostUpdateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentUpdateManyWithoutAuthorInput
+  reputation: Int
+}
+
+input UserUpdateWithoutTrivialDataInput {
+  password: String
+  name: String
+  email: String
+  posts: PostUpdateManyWithoutAuthorInput
+  projects: ProjectUpdateManyWithoutAuthorInput
+  serious: PostUpdateManyWithoutSeriousInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentUpdateManyWithoutAuthorInput
+  reputation: Int
+}
+
+input UserUpdateWithWhereUniqueWithoutSeriousInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutSeriousDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutTrivialInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutTrivialDataInput!
+}
+
+input UserUpsertWithoutCommentsInput {
+  update: UserUpdateWithoutCommentsDataInput!
+  create: UserCreateWithoutCommentsInput!
+}
+
+input UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput!
+  create: UserCreateWithoutPostsInput!
 }
 
 input UserUpsertWithoutProjectsInput {
   update: UserUpdateWithoutProjectsDataInput!
   create: UserCreateWithoutProjectsInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutSeriousInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutSeriousDataInput!
+  create: UserCreateWithoutSeriousInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutTrivialInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutTrivialDataInput!
+  create: UserCreateWithoutTrivialInput!
 }
 
 input UserWhereInput {
@@ -1345,7 +2296,29 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  posts_some: PostWhereInput
   projects_some: ProjectWhereInput
+  serious_some: PostWhereInput
+  trivial_some: PostWhereInput
+  maximumDistance: Int
+  maximumDistance_not: Int
+  maximumDistance_in: [Int!]
+  maximumDistance_not_in: [Int!]
+  maximumDistance_lt: Int
+  maximumDistance_lte: Int
+  maximumDistance_gt: Int
+  maximumDistance_gte: Int
+  shareMyFeed: Boolean
+  shareMyFeed_not: Boolean
+  comments_some: CommentWhereInput
+  reputation: Int
+  reputation_not: Int
+  reputation_in: [Int!]
+  reputation_not_in: [Int!]
+  reputation_lt: Int
+  reputation_lte: Int
+  reputation_gt: Int
+  reputation_gte: Int
   AND: [UserWhereInput!]
 }
 
