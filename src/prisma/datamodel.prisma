@@ -7,6 +7,7 @@ type User {
   projects: [Project!] @relation(name: "ProjectsByUser")
   serious: [Post!] @relation(name: "MarkedSeriousByUser")
   trivial: [Post!] @relation(name: "MarkedTrivialByUser")
+  interested: [Project!] @relation(name: "UsersInterestedProjects")
   maximumDistance: Int! @default(value: 50)
   shareMyFeed: Boolean! @default(value: true)
   comments: [Comment!] @relation(name: "CommentsByUser")
@@ -21,8 +22,7 @@ enum Status {
 type Post {
   photo: String!
   id: ID! @id
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int! @default(value: 0)
   numberOfTrivial: Int! @default(value: 0)
@@ -64,6 +64,7 @@ type Project {
   author: User! @relation(name: "ProjectsByUser", link: INLINE)
   location: Location! @relation(name: "LocationForProject")
   status: Status! @default(value: IN_PROGRESS)
+  interestedUsers: [User!] @relation(name: "UsersInterestedProjects", link: INLINE)
 }
 
 type Tag {

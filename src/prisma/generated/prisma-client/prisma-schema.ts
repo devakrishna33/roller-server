@@ -554,8 +554,7 @@ type PageInfo {
 type Post {
   photo: String!
   id: ID!
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int!
   numberOfTrivial: Int!
@@ -578,8 +577,7 @@ type PostConnection {
 input PostCreateInput {
   photo: String!
   id: ID
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -624,8 +622,7 @@ input PostCreateOneWithoutLocationInput {
 input PostCreateWithoutAuthorInput {
   photo: String!
   id: ID
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -639,8 +636,7 @@ input PostCreateWithoutAuthorInput {
 input PostCreateWithoutCommentsInput {
   photo: String!
   id: ID
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -654,8 +650,7 @@ input PostCreateWithoutCommentsInput {
 input PostCreateWithoutLocationInput {
   photo: String!
   id: ID
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -669,8 +664,7 @@ input PostCreateWithoutLocationInput {
 input PostCreateWithoutSeriousInput {
   photo: String!
   id: ID
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -684,8 +678,7 @@ input PostCreateWithoutSeriousInput {
 input PostCreateWithoutTagsInput {
   photo: String!
   id: ID
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -699,8 +692,7 @@ input PostCreateWithoutTagsInput {
 input PostCreateWithoutTrivialInput {
   photo: String!
   id: ID
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -723,8 +715,6 @@ enum PostOrderByInput {
   id_DESC
   content_ASC
   content_DESC
-  summary_ASC
-  summary_DESC
   title_ASC
   title_DESC
   numberOfSerious_ASC
@@ -740,8 +730,7 @@ enum PostOrderByInput {
 type PostPreviousValues {
   photo: String!
   id: ID!
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int!
   numberOfTrivial: Int!
@@ -792,20 +781,6 @@ input PostScalarWhereInput {
   content_not_starts_with: String
   content_ends_with: String
   content_not_ends_with: String
-  summary: String
-  summary_not: String
-  summary_in: [String!]
-  summary_not_in: [String!]
-  summary_lt: String
-  summary_lte: String
-  summary_gt: String
-  summary_gte: String
-  summary_contains: String
-  summary_not_contains: String
-  summary_starts_with: String
-  summary_not_starts_with: String
-  summary_ends_with: String
-  summary_not_ends_with: String
   title: String
   title_not: String
   title_in: [String!]
@@ -876,7 +851,6 @@ input PostSubscriptionWhereInput {
 input PostUpdateInput {
   photo: String
   content: String
-  summary: String
   title: String
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -891,7 +865,6 @@ input PostUpdateInput {
 input PostUpdateManyDataInput {
   photo: String
   content: String
-  summary: String
   title: String
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -900,7 +873,6 @@ input PostUpdateManyDataInput {
 input PostUpdateManyMutationInput {
   photo: String
   content: String
-  summary: String
   title: String
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -980,7 +952,6 @@ input PostUpdateOneWithoutLocationInput {
 input PostUpdateWithoutAuthorDataInput {
   photo: String
   content: String
-  summary: String
   title: String
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -994,7 +965,6 @@ input PostUpdateWithoutAuthorDataInput {
 input PostUpdateWithoutCommentsDataInput {
   photo: String
   content: String
-  summary: String
   title: String
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -1008,7 +978,6 @@ input PostUpdateWithoutCommentsDataInput {
 input PostUpdateWithoutLocationDataInput {
   photo: String
   content: String
-  summary: String
   title: String
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -1022,7 +991,6 @@ input PostUpdateWithoutLocationDataInput {
 input PostUpdateWithoutSeriousDataInput {
   photo: String
   content: String
-  summary: String
   title: String
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -1036,7 +1004,6 @@ input PostUpdateWithoutSeriousDataInput {
 input PostUpdateWithoutTagsDataInput {
   photo: String
   content: String
-  summary: String
   title: String
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -1050,7 +1017,6 @@ input PostUpdateWithoutTagsDataInput {
 input PostUpdateWithoutTrivialDataInput {
   photo: String
   content: String
-  summary: String
   title: String
   numberOfSerious: Int
   numberOfTrivial: Int
@@ -1158,20 +1124,6 @@ input PostWhereInput {
   content_not_starts_with: String
   content_ends_with: String
   content_not_ends_with: String
-  summary: String
-  summary_not: String
-  summary_in: [String!]
-  summary_not_in: [String!]
-  summary_lt: String
-  summary_lte: String
-  summary_gt: String
-  summary_gte: String
-  summary_contains: String
-  summary_not_contains: String
-  summary_starts_with: String
-  summary_not_starts_with: String
-  summary_ends_with: String
-  summary_not_ends_with: String
   title: String
   title_not: String
   title_in: [String!]
@@ -1237,9 +1189,12 @@ type Project {
   description: String!
   photo: String!
   createdAt: DateTime!
+  updatedAt: DateTime!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   author: User!
   location: Location!
+  status: Status!
+  interestedUsers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 type ProjectConnection {
@@ -1256,10 +1211,17 @@ input ProjectCreateInput {
   comments: CommentCreateManyWithoutProjectInput
   author: UserCreateOneWithoutProjectsInput!
   location: LocationCreateOneWithoutProjectInput!
+  status: Status
+  interestedUsers: UserCreateManyWithoutInterestedInput
 }
 
 input ProjectCreateManyWithoutAuthorInput {
   create: [ProjectCreateWithoutAuthorInput!]
+  connect: [ProjectWhereUniqueInput!]
+}
+
+input ProjectCreateManyWithoutInterestedUsersInput {
+  create: [ProjectCreateWithoutInterestedUsersInput!]
   connect: [ProjectWhereUniqueInput!]
 }
 
@@ -1280,6 +1242,8 @@ input ProjectCreateWithoutAuthorInput {
   photo: String!
   comments: CommentCreateManyWithoutProjectInput
   location: LocationCreateOneWithoutProjectInput!
+  status: Status
+  interestedUsers: UserCreateManyWithoutInterestedInput
 }
 
 input ProjectCreateWithoutCommentsInput {
@@ -1289,6 +1253,19 @@ input ProjectCreateWithoutCommentsInput {
   photo: String!
   author: UserCreateOneWithoutProjectsInput!
   location: LocationCreateOneWithoutProjectInput!
+  status: Status
+  interestedUsers: UserCreateManyWithoutInterestedInput
+}
+
+input ProjectCreateWithoutInterestedUsersInput {
+  id: ID
+  title: String!
+  description: String!
+  photo: String!
+  comments: CommentCreateManyWithoutProjectInput
+  author: UserCreateOneWithoutProjectsInput!
+  location: LocationCreateOneWithoutProjectInput!
+  status: Status
 }
 
 input ProjectCreateWithoutLocationInput {
@@ -1298,6 +1275,8 @@ input ProjectCreateWithoutLocationInput {
   photo: String!
   comments: CommentCreateManyWithoutProjectInput
   author: UserCreateOneWithoutProjectsInput!
+  status: Status
+  interestedUsers: UserCreateManyWithoutInterestedInput
 }
 
 type ProjectEdge {
@@ -1316,6 +1295,10 @@ enum ProjectOrderByInput {
   photo_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  status_ASC
+  status_DESC
 }
 
 type ProjectPreviousValues {
@@ -1324,6 +1307,8 @@ type ProjectPreviousValues {
   description: String!
   photo: String!
   createdAt: DateTime!
+  updatedAt: DateTime!
+  status: Status!
 }
 
 input ProjectScalarWhereInput {
@@ -1391,6 +1376,18 @@ input ProjectScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  status: Status
+  status_not: Status
+  status_in: [Status!]
+  status_not_in: [Status!]
   AND: [ProjectScalarWhereInput!]
   OR: [ProjectScalarWhereInput!]
   NOT: [ProjectScalarWhereInput!]
@@ -1419,18 +1416,22 @@ input ProjectUpdateInput {
   comments: CommentUpdateManyWithoutProjectInput
   author: UserUpdateOneRequiredWithoutProjectsInput
   location: LocationUpdateOneRequiredWithoutProjectInput
+  status: Status
+  interestedUsers: UserUpdateManyWithoutInterestedInput
 }
 
 input ProjectUpdateManyDataInput {
   title: String
   description: String
   photo: String
+  status: Status
 }
 
 input ProjectUpdateManyMutationInput {
   title: String
   description: String
   photo: String
+  status: Status
 }
 
 input ProjectUpdateManyWithoutAuthorInput {
@@ -1441,6 +1442,18 @@ input ProjectUpdateManyWithoutAuthorInput {
   disconnect: [ProjectWhereUniqueInput!]
   update: [ProjectUpdateWithWhereUniqueWithoutAuthorInput!]
   upsert: [ProjectUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+  updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+}
+
+input ProjectUpdateManyWithoutInterestedUsersInput {
+  create: [ProjectCreateWithoutInterestedUsersInput!]
+  delete: [ProjectWhereUniqueInput!]
+  connect: [ProjectWhereUniqueInput!]
+  set: [ProjectWhereUniqueInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutInterestedUsersInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutInterestedUsersInput!]
   deleteMany: [ProjectScalarWhereInput!]
   updateMany: [ProjectUpdateManyWithWhereNestedInput!]
 }
@@ -1474,6 +1487,8 @@ input ProjectUpdateWithoutAuthorDataInput {
   photo: String
   comments: CommentUpdateManyWithoutProjectInput
   location: LocationUpdateOneRequiredWithoutProjectInput
+  status: Status
+  interestedUsers: UserUpdateManyWithoutInterestedInput
 }
 
 input ProjectUpdateWithoutCommentsDataInput {
@@ -1482,6 +1497,18 @@ input ProjectUpdateWithoutCommentsDataInput {
   photo: String
   author: UserUpdateOneRequiredWithoutProjectsInput
   location: LocationUpdateOneRequiredWithoutProjectInput
+  status: Status
+  interestedUsers: UserUpdateManyWithoutInterestedInput
+}
+
+input ProjectUpdateWithoutInterestedUsersDataInput {
+  title: String
+  description: String
+  photo: String
+  comments: CommentUpdateManyWithoutProjectInput
+  author: UserUpdateOneRequiredWithoutProjectsInput
+  location: LocationUpdateOneRequiredWithoutProjectInput
+  status: Status
 }
 
 input ProjectUpdateWithoutLocationDataInput {
@@ -1490,11 +1517,18 @@ input ProjectUpdateWithoutLocationDataInput {
   photo: String
   comments: CommentUpdateManyWithoutProjectInput
   author: UserUpdateOneRequiredWithoutProjectsInput
+  status: Status
+  interestedUsers: UserUpdateManyWithoutInterestedInput
 }
 
 input ProjectUpdateWithWhereUniqueWithoutAuthorInput {
   where: ProjectWhereUniqueInput!
   data: ProjectUpdateWithoutAuthorDataInput!
+}
+
+input ProjectUpdateWithWhereUniqueWithoutInterestedUsersInput {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateWithoutInterestedUsersDataInput!
 }
 
 input ProjectUpsertWithoutCommentsInput {
@@ -1511,6 +1545,12 @@ input ProjectUpsertWithWhereUniqueWithoutAuthorInput {
   where: ProjectWhereUniqueInput!
   update: ProjectUpdateWithoutAuthorDataInput!
   create: ProjectCreateWithoutAuthorInput!
+}
+
+input ProjectUpsertWithWhereUniqueWithoutInterestedUsersInput {
+  where: ProjectWhereUniqueInput!
+  update: ProjectUpdateWithoutInterestedUsersDataInput!
+  create: ProjectCreateWithoutInterestedUsersInput!
 }
 
 input ProjectWhereInput {
@@ -1578,9 +1618,22 @@ input ProjectWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   comments_some: CommentWhereInput
   author: UserWhereInput
   location: LocationWhereInput
+  status: Status
+  status_not: Status
+  status_in: [Status!]
+  status_not_in: [Status!]
+  interestedUsers_some: UserWhereInput
   AND: [ProjectWhereInput!]
 }
 
@@ -1608,6 +1661,11 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
+}
+
+enum Status {
+  IN_PROGRESS
+  COMPLETE
 }
 
 type Subscription {
@@ -1805,6 +1863,7 @@ type User {
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
   serious(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   trivial(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  interested(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
   maximumDistance: Int!
   shareMyFeed: Boolean!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
@@ -1826,10 +1885,16 @@ input UserCreateInput {
   projects: ProjectCreateManyWithoutAuthorInput
   serious: PostCreateManyWithoutSeriousInput
   trivial: PostCreateManyWithoutTrivialInput
+  interested: ProjectCreateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentCreateManyWithoutAuthorInput
   reputation: Int
+}
+
+input UserCreateManyWithoutInterestedInput {
+  create: [UserCreateWithoutInterestedInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateManyWithoutSeriousInput {
@@ -1866,8 +1931,24 @@ input UserCreateWithoutCommentsInput {
   projects: ProjectCreateManyWithoutAuthorInput
   serious: PostCreateManyWithoutSeriousInput
   trivial: PostCreateManyWithoutTrivialInput
+  interested: ProjectCreateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
+  reputation: Int
+}
+
+input UserCreateWithoutInterestedInput {
+  id: ID
+  password: String!
+  name: String!
+  email: String!
+  posts: PostCreateManyWithoutAuthorInput
+  projects: ProjectCreateManyWithoutAuthorInput
+  serious: PostCreateManyWithoutSeriousInput
+  trivial: PostCreateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentCreateManyWithoutAuthorInput
   reputation: Int
 }
 
@@ -1879,6 +1960,7 @@ input UserCreateWithoutPostsInput {
   projects: ProjectCreateManyWithoutAuthorInput
   serious: PostCreateManyWithoutSeriousInput
   trivial: PostCreateManyWithoutTrivialInput
+  interested: ProjectCreateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentCreateManyWithoutAuthorInput
@@ -1893,6 +1975,7 @@ input UserCreateWithoutProjectsInput {
   posts: PostCreateManyWithoutAuthorInput
   serious: PostCreateManyWithoutSeriousInput
   trivial: PostCreateManyWithoutTrivialInput
+  interested: ProjectCreateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentCreateManyWithoutAuthorInput
@@ -1907,6 +1990,7 @@ input UserCreateWithoutSeriousInput {
   posts: PostCreateManyWithoutAuthorInput
   projects: ProjectCreateManyWithoutAuthorInput
   trivial: PostCreateManyWithoutTrivialInput
+  interested: ProjectCreateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentCreateManyWithoutAuthorInput
@@ -1921,6 +2005,7 @@ input UserCreateWithoutTrivialInput {
   posts: PostCreateManyWithoutAuthorInput
   projects: ProjectCreateManyWithoutAuthorInput
   serious: PostCreateManyWithoutSeriousInput
+  interested: ProjectCreateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentCreateManyWithoutAuthorInput
@@ -2063,6 +2148,7 @@ input UserUpdateInput {
   projects: ProjectUpdateManyWithoutAuthorInput
   serious: PostUpdateManyWithoutSeriousInput
   trivial: PostUpdateManyWithoutTrivialInput
+  interested: ProjectUpdateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentUpdateManyWithoutAuthorInput
@@ -2085,6 +2171,18 @@ input UserUpdateManyMutationInput {
   maximumDistance: Int
   shareMyFeed: Boolean
   reputation: Int
+}
+
+input UserUpdateManyWithoutInterestedInput {
+  create: [UserCreateWithoutInterestedInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutInterestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutInterestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
 }
 
 input UserUpdateManyWithoutSeriousInput {
@@ -2145,8 +2243,23 @@ input UserUpdateWithoutCommentsDataInput {
   projects: ProjectUpdateManyWithoutAuthorInput
   serious: PostUpdateManyWithoutSeriousInput
   trivial: PostUpdateManyWithoutTrivialInput
+  interested: ProjectUpdateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
+  reputation: Int
+}
+
+input UserUpdateWithoutInterestedDataInput {
+  password: String
+  name: String
+  email: String
+  posts: PostUpdateManyWithoutAuthorInput
+  projects: ProjectUpdateManyWithoutAuthorInput
+  serious: PostUpdateManyWithoutSeriousInput
+  trivial: PostUpdateManyWithoutTrivialInput
+  maximumDistance: Int
+  shareMyFeed: Boolean
+  comments: CommentUpdateManyWithoutAuthorInput
   reputation: Int
 }
 
@@ -2157,6 +2270,7 @@ input UserUpdateWithoutPostsDataInput {
   projects: ProjectUpdateManyWithoutAuthorInput
   serious: PostUpdateManyWithoutSeriousInput
   trivial: PostUpdateManyWithoutTrivialInput
+  interested: ProjectUpdateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentUpdateManyWithoutAuthorInput
@@ -2170,6 +2284,7 @@ input UserUpdateWithoutProjectsDataInput {
   posts: PostUpdateManyWithoutAuthorInput
   serious: PostUpdateManyWithoutSeriousInput
   trivial: PostUpdateManyWithoutTrivialInput
+  interested: ProjectUpdateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentUpdateManyWithoutAuthorInput
@@ -2183,6 +2298,7 @@ input UserUpdateWithoutSeriousDataInput {
   posts: PostUpdateManyWithoutAuthorInput
   projects: ProjectUpdateManyWithoutAuthorInput
   trivial: PostUpdateManyWithoutTrivialInput
+  interested: ProjectUpdateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentUpdateManyWithoutAuthorInput
@@ -2196,10 +2312,16 @@ input UserUpdateWithoutTrivialDataInput {
   posts: PostUpdateManyWithoutAuthorInput
   projects: ProjectUpdateManyWithoutAuthorInput
   serious: PostUpdateManyWithoutSeriousInput
+  interested: ProjectUpdateManyWithoutInterestedUsersInput
   maximumDistance: Int
   shareMyFeed: Boolean
   comments: CommentUpdateManyWithoutAuthorInput
   reputation: Int
+}
+
+input UserUpdateWithWhereUniqueWithoutInterestedInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutInterestedDataInput!
 }
 
 input UserUpdateWithWhereUniqueWithoutSeriousInput {
@@ -2225,6 +2347,12 @@ input UserUpsertWithoutPostsInput {
 input UserUpsertWithoutProjectsInput {
   update: UserUpdateWithoutProjectsDataInput!
   create: UserCreateWithoutProjectsInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutInterestedInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutInterestedDataInput!
+  create: UserCreateWithoutInterestedInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutSeriousInput {
@@ -2300,6 +2428,7 @@ input UserWhereInput {
   projects_some: ProjectWhereInput
   serious_some: PostWhereInput
   trivial_some: PostWhereInput
+  interested_some: ProjectWhereInput
   maximumDistance: Int
   maximumDistance_not: Int
   maximumDistance_in: [Int!]

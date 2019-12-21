@@ -1,6 +1,7 @@
 type Query {
   me: User
   projects: [Project!]
+  trending: [Project!]
 }
 
 type Mutation {
@@ -35,8 +36,7 @@ type User {
 type Post {
   photo: String!
   id: ID!
-  content: String
-  summary: String!
+  content: String!
   title: String!
   numberOfSerious: Int!
   numberOfTrivial: Int!
@@ -44,6 +44,7 @@ type Post {
   serious: [User!]
   author: User!
   createdAt: String!
+  updatedAt: String!
   location: Location!
   tags: [Tag!]
   comments: [Comment!]
@@ -75,6 +76,7 @@ type Project {
   comments: [Comment!]
   location: Location!
   author: User!
+  updatedAt: String!
 }
 
 type Tag {
@@ -120,8 +122,8 @@ input CreatePostInput {
 }
 
 input LocationInput {
-  lat: String!
-  lng: String!
+  lat: Int!
+  lng: Int!
 }
 
 input CreateProjectInput {

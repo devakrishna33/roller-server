@@ -4,13 +4,14 @@ export const Query = {
   me(parent, args, { authId }) {
     return authId ? client.user({ id: authId }) : null;
   },
-  async projects(_paernt, { page, rowsPerPage }, { authId }) {
-    if (!authId) {
-      return null;
-    }
-    return client.projects({
-      skip: page * rowsPerPage,
-      first: rowsPerPage
+  async projects(_paernt) {
+    console.log("hi");
+    return await client.projects();
+  },
+  async trending(_parent, _args, { authId }) {
+    return await client.posts({
+      orderBy: "numberOfSerious_DESC",
+      first: 10
     });
   }
 };

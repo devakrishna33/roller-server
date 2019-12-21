@@ -1,8 +1,30 @@
 import { client } from "../../prisma";
 
 export default {
-  async createPost(_parent, { photo, content, summary, title }, { authId }) {
+  async createPost(_parent, { photo, content, title, lat, lng }, { authId }) {
     if (!authId) return null;
+    return await client.createPost({
+      photo,
+      content,
+      title,
+      author: {
+        connect: {
+          id: authId
+        }
+      },
+      serious: {
+        connect: {
+          id: authId
+        }
+      },
+      numberOfSerious: 1,
+      location: {
+        create: {
+          lng,
+          lat
+        }
+      }
+    });
   },
   async deletePost(_parent, { id }, { authId }) {
     if (!authId) return null;
